@@ -10,7 +10,7 @@ const routes: Routes = [
     component: ListTeamComponent
   },
   {
-    path: 'teams/:id',
+    path: 'teams/:teamId',
     component: TeamDetailComponent
   },
   {
