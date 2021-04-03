@@ -10,13 +10,48 @@ import {StatisticsService} from '../../service/statistics.service';
 })
 export class TeamDetailComponent implements OnInit {
   listFixture: any = [];
-  totalShots: any = [];
-  shotOnGoals: any = [];
-  cornerKicks: any = [];
-  offSides: any = [];
-  goalKeeperSaves: any = [];
-  fouls: any = [];
-  yellowCards: any = [];
+  totalShots: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  shotOnGoals: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  cornerKicks: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  offSides: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  goalKeeperSaves: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  fouls: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
+  yellowCards: any = {
+    total: [],
+    win: 0,
+    draw: 0,
+    lose: 0
+  };
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -57,6 +92,41 @@ export class TeamDetailComponent implements OnInit {
       let foul = data.api.statistics.Fouls;
       let yellowCard = data.api.statistics['Yellow Cards'];
       if (isHomeTeam) {
+        if (totalShot.home > totalShot.away) {
+          this.totalShots.win++;
+        } else if (totalShot.home < totalShot.away) {
+          this.totalShots.lose++;
+        }
+        if (shotOnGoal.home > shotOnGoal.away) {
+          this.shotOnGoals.win++;
+        } else if (shotOnGoal.home < shotOnGoal.away) {
+          this.shotOnGoals.lose++;
+        }
+        if (cornerKick.home > cornerKick.away) {
+          this.cornerKicks.win++;
+        } else if (cornerKick.home < cornerKick.away) {
+          this.cornerKicks.lose++;
+        }
+        if (offSide.home > offSide.away) {
+          this.offSides.win++;
+        } else if (offSide.home < offSide.away) {
+          this.offSides.lose++;
+        }
+        if (goalKeeperSave.home > goalKeeperSave.away) {
+          this.goalKeeperSaves.win++;
+        } else if (goalKeeperSave.home < goalKeeperSave.away) {
+          this.goalKeeperSaves.lose++;
+        }
+        if (foul.home > foul.away) {
+          this.fouls.win++;
+        } else if (foul.home < foul.away) {
+          this.fouls.lose++;
+        }
+        if (yellowCard.home > yellowCard.away) {
+          this.yellowCards.win++;
+        } else if (yellowCard.home < yellowCard.away) {
+          this.yellowCards.lose++;
+        }
         totalShot = totalShot.home;
         shotOnGoal = shotOnGoal.home;
         cornerKick = cornerKick.home;
@@ -65,6 +135,42 @@ export class TeamDetailComponent implements OnInit {
         foul = foul.home;
         yellowCard = yellowCard.home;
       } else {
+
+        if (totalShot.home < totalShot.away) {
+          this.totalShots.win++;
+        } else if (totalShot.home > totalShot.away) {
+          this.totalShots.lose++;
+        }
+        if (shotOnGoal.home < shotOnGoal.away) {
+          this.shotOnGoals.win++;
+        } else if (shotOnGoal.home > shotOnGoal.away) {
+          this.shotOnGoals.lose++;
+        }
+        if (cornerKick.home < cornerKick.away) {
+          this.cornerKicks.win++;
+        } else if (cornerKick.home > cornerKick.away) {
+          this.cornerKicks.lose++;
+        }
+        if (offSide.home < offSide.away) {
+          this.offSides.win++;
+        } else if (offSide.home > offSide.away) {
+          this.offSides.lose++;
+        }
+        if (goalKeeperSave.home < goalKeeperSave.away) {
+          this.goalKeeperSaves.win++;
+        } else if (goalKeeperSave.home > goalKeeperSave.away) {
+          this.goalKeeperSaves.lose++;
+        }
+        if (foul.home < foul.away) {
+          this.fouls.win++;
+        } else if (foul.home > foul.away) {
+          this.fouls.lose++;
+        }
+        if (yellowCard.home < yellowCard.away) {
+          this.yellowCards.win++;
+        } else if (yellowCard.home > yellowCard.away) {
+          this.yellowCards.lose++;
+        }
         totalShot = totalShot.away;
         shotOnGoal = shotOnGoal.away;
         cornerKick = cornerKick.away;
@@ -73,13 +179,31 @@ export class TeamDetailComponent implements OnInit {
         foul = foul.away;
         yellowCard = yellowCard.away;
       }
-      this.totalShots.push(totalShot);
-      this.shotOnGoals.push(shotOnGoal);
-      this.cornerKicks.push(cornerKick);
-      this.offSides.push(offSide);
-      this.goalKeeperSaves.push(goalKeeperSave);
-      this.fouls.push(foul);
-      this.yellowCards.push(yellowCard);
+      if (shotOnGoal.home == shotOnGoal.away) {
+        this.shotOnGoals.draw++;
+      }
+      if (cornerKick.home == cornerKick.away) {
+        this.cornerKicks.draw++;
+      }
+      if (cornerKick.home == cornerKick.away) {
+        this.cornerKicks.draw++;
+      }
+      if (offSide.home == offSide.away) {
+        this.offSides.draw++;
+      }
+      if (foul.home == foul.away) {
+        this.fouls.draw++;
+      }
+      if (yellowCard.home == yellowCard.away) {
+        this.yellowCards.draw++;
+      }
+      this.totalShots.total.push(totalShot);
+      this.shotOnGoals.total.push(shotOnGoal);
+      this.cornerKicks.total.push(cornerKick);
+      this.offSides.total.push(offSide);
+      this.goalKeeperSaves.total.push(goalKeeperSave);
+      this.fouls.total.push(foul);
+      this.yellowCards.total.push(yellowCard);
     });
   }
 
