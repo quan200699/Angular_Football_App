@@ -14,7 +14,7 @@ const routes: Routes = [
     component: TeamDetailComponent
   },
   {
-    path: '**',
+    path: '',
     redirectTo: 'teams'
   }
 ];
