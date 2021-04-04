@@ -129,7 +129,7 @@
                   </span>
                 </td>
                 <td style="text-align: center">
-                  <a routerLink="" *ngIf="fixture.statusShort == 'FT'">
+                  <a routerLink="/fixture/{{fixture.fixture_id}}" *ngIf="fixture.statusShort == 'FT'">
                     {{fixture.score.fulltime}}
                   </a>
                   <span *ngIf="fixture.statusShort != 'FT'">-</span>

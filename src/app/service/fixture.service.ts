@@ -20,4 +20,8 @@ export class FixtureService {
   getAllH2HBetweenTwoTeam(team1Id, team2Id): Observable<any> {
     return this.http.get<any>(`${API_URL}/fixtures/h2h/${team1Id}/${team2Id}`);
   }
+
+  getFixtureById(fixtureId): Observable<any> {
+    return this.http.get<any>(`${API_URL}/fixtures/id/${fixtureId}`);
+  }
 }

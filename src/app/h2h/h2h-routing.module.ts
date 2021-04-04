@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: ':team1Id/:team2Id',
     component: H2hComponent
+  },
+  {
+    path: '**',
+    redirectTo: ':team1Id/:team2Id'
   }
 ];
 

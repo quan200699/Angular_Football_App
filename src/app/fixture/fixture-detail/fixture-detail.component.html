@@ -1,1 +1,75 @@
-<p>fixture-detail works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          Statistics
+        </h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="statistics" class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>Criteria</th>
+            <th>
+              <span>
+                <img [src]="currentFixture.homeTeam.logo" [alt]="currentFixture.homeTeam.code" width="25"
+                         height="25">
+                {{currentFixture.homeTeam.team_name}}
+              </span>
+            </th>
+            <th>
+              <span>
+                <img [src]="currentFixture.awayTeam.logo" [alt]="currentFixture.awayTeam.code" width="25"
+                     height="25">
+                {{currentFixture.awayTeam.team_name}}
+              </span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Total Shots:</td>
+            <td>{{statistics['Total Shots'].home}}</td>
+            <td>{{statistics['Total Shots'].away}}</td>
+          </tr>
+          <tr>
+            <td>Shot On Goals:</td>
+            <td>{{statistics['Shots on Goal'].home}}</td>
+            <td>{{statistics['Shots on Goal'].away}}</td>
+          </tr>
+          <tr>
+            <td>Corner Kicks:</td>
+            <td>{{statistics['Corner Kicks'].home}}</td>
+            <td>{{statistics['Corner Kicks'].away}}</td>
+          </tr>
+          <tr>
+            <td>Offsides:</td>
+            <td>{{statistics.Offsides.home}}</td>
+            <td>{{statistics.Offsides.away}}</td>
+          </tr>
+          <tr>
+            <td>Goalkeeper Saves:</td>
+            <td>{{statistics['Goalkeeper Saves'].home}}</td>
+            <td>{{statistics['Goalkeeper Saves'].away}}</td>
+          </tr>
+          <tr>
+            <td>Fouls:</td>
+            <td>{{statistics.Fouls.home}}</td>
+            <td>{{statistics.Fouls.away}}</td>
+          </tr>
+          <tr>
+            <td>Yellow Cards:</td>
+            <td>{{statistics['Yellow Cards'].home}}</td>
+            <td>{{statistics['Yellow Cards'].away}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>

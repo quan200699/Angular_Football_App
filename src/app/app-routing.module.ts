@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./h2h/h2h.module').then(module => module.H2hModule)
   },
   {
-    path: 'fixture/:fixtureId',
+    path: 'fixture',
     loadChildren: () => import('./fixture/fixture.module').then(module => module.FixtureModule)
   }
 ];

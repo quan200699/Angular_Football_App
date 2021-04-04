@@ -5,12 +5,12 @@ import {FixtureDetailComponent} from './fixture-detail/fixture-detail.component'
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':fixtureId',
     component: FixtureDetailComponent
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: ':fixtureId'
   }
 ];
 
