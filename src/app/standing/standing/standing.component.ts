@@ -7,13 +7,14 @@ import {DataTableService} from '../../service/data-table.service';
 
 @Component({
   selector: 'app-total-shots',
-  templateUrl: './total-shots.component.html',
-  styleUrls: ['./total-shots.component.css']
+  templateUrl: './standing.component.html',
+  styleUrls: ['./standing.component.css']
 })
-export class TotalShotsComponent implements OnInit {
+export class StandingComponent implements OnInit {
   listTeam: any = [];
   listFixture: any = [];
   standing: any = [];
+  statisticName: string = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -21,14 +22,15 @@ export class TotalShotsComponent implements OnInit {
               private teamService: TeamService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const leagueId = +paramMap.get('leagueId');
-      this.getAllTeamByLeagueId(leagueId);
+      this.statisticName = paramMap.get('statistic');
+      this.getAllTeamByLeagueId(leagueId, this.statisticName);
     });
   }
 
   ngOnInit() {
   }
 
-  getAllTeamByLeagueId(leagueId) {
+  getAllTeamByLeagueId(leagueId, statisticName) {
     this.teamService.getAllTeamFromLeague(leagueId).subscribe(async data => {
       this.listTeam = data.api.teams;
       let count = 0;
@@ -41,7 +43,7 @@ export class TotalShotsComponent implements OnInit {
           teamName: teamName,
           logo: teamLogo,
           code: teamCode,
-          totalShots: {
+          data: {
             total: 0,
             win: 0,
             draw: 0,
@@ -59,19 +61,20 @@ export class TotalShotsComponent implements OnInit {
           }
           if (fixtureStatus == 'FT') {
             let data2 = await this.getStatisticsByFixtureIdToPromise(this.listFixture[i].fixture_id);
-            let totalShot = data2.api.statistics['Total Shots'];
-            this.checkCriteria(totalShot, this.standing[count].totalShots, isHomeTeam);
+            let statistic = data2.api.statistics[statisticName];
+            this.checkCriteria(statistic, this.standing[count].data, isHomeTeam);
             if (isHomeTeam) {
-              totalShot = totalShot.home;
+              statistic = statistic.home;
             } else {
-              totalShot = totalShot.away;
+              statistic = statistic.away;
             }
-            this.standing[count].totalShots.total += +totalShot;
+            this.standing[count].data.total += +statistic;
             let x = await this.waitingForData();
           }
         }
         count++;
       }
+      this.standing = this.sortList(this.standing);
     });
   }
 

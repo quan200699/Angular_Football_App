@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Standing For Total Shots</h3>
+          <h3 class="card-title">Standing For {{statisticName}}</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -26,10 +26,10 @@
                 <td>{{i+1}}</td>
                 <td><img [src]="team.logo" [alt]="team.code" width="50" height="50"></td>
                 <td>{{team.teamName}}</td>
-                <td>{{team.totalShots.win}}</td>
-                <td>{{team.totalShots.draw}}</td>
-                <td>{{team.totalShots.lose}}</td>
-                <td>{{team.totalShots.total}}</td>
+                <td>{{team.data.win}}</td>
+                <td>{{team.data.draw}}</td>
+                <td>{{team.data.lose}}</td>
+                <td>{{team.data.total}}</td>
                 <td><a [routerLink]="[team.team_id]">Details</a></td>
               </tr>
             </ng-container>

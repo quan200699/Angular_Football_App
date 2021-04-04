@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TotalShotsComponent} from './total-shots/total-shots.component';
+import {StandingComponent} from './standing/standing.component';
 
 
 const routes: Routes = [
   {
-    path: 'total-shots',
-    component: TotalShotsComponent
+    path: ':statistic',
+    component: StandingComponent
   }
 ];
 

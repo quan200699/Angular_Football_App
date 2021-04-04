@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StandingRoutingModule } from './standing-routing.module';
-import { TotalShotsComponent } from './total-shots/total-shots.component';
+import { StandingComponent } from './standing/standing.component';
 
 
 @NgModule({
-  declarations: [TotalShotsComponent],
+  declarations: [StandingComponent],
   imports: [
     CommonModule,
     StandingRoutingModule
