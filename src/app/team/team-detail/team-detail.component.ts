@@ -54,6 +54,7 @@ export class TeamDetailComponent implements OnInit {
     lose: 0
   };
   currentTeam: any;
+  loading = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -79,6 +80,7 @@ export class TeamDetailComponent implements OnInit {
   getAllFixtureByTeamAndLeague(teamId: any, leagueId: any) {
     this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).subscribe(async data => {
       this.listFixture = data.api.fixtures;
+      let count = 0;
       for (let i = 0; i < this.listFixture.length; i++) {
         const homeTeam = this.listFixture[i].homeTeam;
         const fixtureStatus = this.listFixture[i].statusShort;
@@ -88,8 +90,8 @@ export class TeamDetailComponent implements OnInit {
         }
         if (fixtureStatus == 'FT') {
           let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
-          console.log(x);
         }
+        this.loading = Math.ceil((++count/this.listFixture.length)*100);
       }
     });
   }
@@ -98,7 +100,7 @@ export class TeamDetailComponent implements OnInit {
     return new Promise((resolve, reject) => setTimeout(() => {
       this.getStatisticsByFixtureId(fixtureId, isHomeTeam);
       resolve('success');
-    }, 5000));
+    }, 3000));
   }
 
   getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any) {
@@ -110,42 +112,14 @@ export class TeamDetailComponent implements OnInit {
       let goalKeeperSave = data.api.statistics['Goalkeeper Saves'];
       let foul = data.api.statistics.Fouls;
       let yellowCard = data.api.statistics['Yellow Cards'];
+      this.checkCriteria(totalShot, this.totalShots, isHomeTeam);
+      this.checkCriteria(shotOnGoal, this.shotOnGoals, isHomeTeam);
+      this.checkCriteria(cornerKick, this.cornerKicks, isHomeTeam);
+      this.checkCriteria(offside, this.offsides, isHomeTeam);
+      this.checkCriteria(goalKeeperSave, this.goalKeeperSaves, isHomeTeam);
+      this.checkCriteria(foul, this.fouls, isHomeTeam);
+      this.checkCriteria(yellowCard, this.yellowCards, isHomeTeam);
       if (isHomeTeam) {
-        if (totalShot.home > totalShot.away) {
-          this.totalShots.win++;
-        } else if (totalShot.home < totalShot.away) {
-          this.totalShots.lose++;
-        }
-        if (shotOnGoal.home > shotOnGoal.away) {
-          this.shotOnGoals.win++;
-        } else if (shotOnGoal.home < shotOnGoal.away) {
-          this.shotOnGoals.lose++;
-        }
-        if (cornerKick.home > cornerKick.away) {
-          this.cornerKicks.win++;
-        } else if (cornerKick.home < cornerKick.away) {
-          this.cornerKicks.lose++;
-        }
-        if (offside.home > offside.away) {
-          this.offsides.win++;
-        } else if (offside.home < offside.away) {
-          this.offsides.lose++;
-        }
-        if (goalKeeperSave.home > goalKeeperSave.away) {
-          this.goalKeeperSaves.win++;
-        } else if (goalKeeperSave.home < goalKeeperSave.away) {
-          this.goalKeeperSaves.lose++;
-        }
-        if (foul.home > foul.away) {
-          this.fouls.win++;
-        } else if (foul.home < foul.away) {
-          this.fouls.lose++;
-        }
-        if (yellowCard.home > yellowCard.away) {
-          this.yellowCards.win++;
-        } else if (yellowCard.home < yellowCard.away) {
-          this.yellowCards.lose++;
-        }
         totalShot = totalShot.home;
         shotOnGoal = shotOnGoal.home;
         cornerKick = cornerKick.home;
@@ -154,42 +128,6 @@ export class TeamDetailComponent implements OnInit {
         foul = foul.home;
         yellowCard = yellowCard.home;
       } else {
-
-        if (totalShot.home < totalShot.away) {
-          this.totalShots.win++;
-        } else if (totalShot.home > totalShot.away) {
-          this.totalShots.lose++;
-        }
-        if (shotOnGoal.home < shotOnGoal.away) {
-          this.shotOnGoals.win++;
-        } else if (shotOnGoal.home > shotOnGoal.away) {
-          this.shotOnGoals.lose++;
-        }
-        if (cornerKick.home < cornerKick.away) {
-          this.cornerKicks.win++;
-        } else if (cornerKick.home > cornerKick.away) {
-          this.cornerKicks.lose++;
-        }
-        if (offside.home < offside.away) {
-          this.offsides.win++;
-        } else if (offside.home > offside.away) {
-          this.offsides.lose++;
-        }
-        if (goalKeeperSave.home < goalKeeperSave.away) {
-          this.goalKeeperSaves.win++;
-        } else if (goalKeeperSave.home > goalKeeperSave.away) {
-          this.goalKeeperSaves.lose++;
-        }
-        if (foul.home < foul.away) {
-          this.fouls.win++;
-        } else if (foul.home > foul.away) {
-          this.fouls.lose++;
-        }
-        if (yellowCard.home < yellowCard.away) {
-          this.yellowCards.win++;
-        } else if (yellowCard.home > yellowCard.away) {
-          this.yellowCards.lose++;
-        }
         totalShot = totalShot.away;
         shotOnGoal = shotOnGoal.away;
         cornerKick = cornerKick.away;
@@ -197,24 +135,6 @@ export class TeamDetailComponent implements OnInit {
         goalKeeperSave = goalKeeperSave.away;
         foul = foul.away;
         yellowCard = yellowCard.away;
-      }
-      if (shotOnGoal.home == shotOnGoal.away) {
-        this.shotOnGoals.draw++;
-      }
-      if (cornerKick.home == cornerKick.away) {
-        this.cornerKicks.draw++;
-      }
-      if (cornerKick.home == cornerKick.away) {
-        this.cornerKicks.draw++;
-      }
-      if (offside.home == offside.away) {
-        this.offsides.draw++;
-      }
-      if (foul.home == foul.away) {
-        this.fouls.draw++;
-      }
-      if (yellowCard.home == yellowCard.away) {
-        this.yellowCards.draw++;
       }
       this.totalShots.total.push(totalShot);
       this.shotOnGoals.total.push(shotOnGoal);
@@ -232,5 +152,25 @@ export class TeamDetailComponent implements OnInit {
       sum += +array[i];
     }
     return sum;
+  }
+
+  checkCriteria(criteriaName, criteria, isHomeTeam) {
+    if(isHomeTeam){
+      if (criteriaName.home > criteriaName.away) {
+        criteria.win++;
+      } else if (criteriaName.home < criteriaName.away) {
+        criteria.lose++;
+      } else {
+        criteria.draw++;
+      }
+    }else {
+      if (criteriaName.away > criteriaName.home) {
+        criteria.win++;
+      } else if (criteriaName.away < criteriaName.home) {
+        criteria.lose++;
+      } else {
+        criteria.draw++;
+      }
+    }
   }
 }
