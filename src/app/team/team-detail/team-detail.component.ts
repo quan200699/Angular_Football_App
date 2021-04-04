@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {FixtureService} from '../../service/fixture.service';
 import {StatisticsService} from '../../service/statistics.service';
 import {TeamService} from '../../service/team.service';
+import {DataTableService} from '../../service/data-table.service';
 
 @Component({
   selector: 'app-team-detail',
@@ -55,11 +56,13 @@ export class TeamDetailComponent implements OnInit {
   };
   currentTeam: any;
   loading = 0;
+  currentFixture = 1;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
               private statisticsService: StatisticsService,
-              private teamService: TeamService) {
+              private teamService: TeamService,
+              private dataTableService: DataTableService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const teamId = +paramMap.get('teamId');
       const leagueId = +paramMap.get('leagueId');
@@ -80,19 +83,21 @@ export class TeamDetailComponent implements OnInit {
   getAllFixtureByTeamAndLeague(teamId: any, leagueId: any) {
     this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).subscribe(async data => {
       this.listFixture = data.api.fixtures;
-      let count = 0;
-      for (let i = 0; i < this.listFixture.length; i++) {
-        const homeTeam = this.listFixture[i].homeTeam;
-        const fixtureStatus = this.listFixture[i].statusShort;
-        let isHomeTeam = false;
-        if (homeTeam.team_id === teamId) {
-          isHomeTeam = true;
-        }
-        if (fixtureStatus == 'FT') {
-          let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
-        }
-        this.loading = Math.ceil((++count/this.listFixture.length)*100);
-      }
+      // let count = 0;
+      // for (let i = 0; i < this.listFixture.length; i++) {
+      //   const homeTeam = this.listFixture[i].homeTeam;
+      //   const fixtureStatus = this.listFixture[i].statusShort;
+      //   let isHomeTeam = false;
+      //   if (homeTeam.team_id === teamId) {
+      //     isHomeTeam = true;
+      //   }
+      //   if (fixtureStatus == 'FT') {
+      //     let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
+      //         this.currentFixture++;
+      //   }
+      //   this.loading = Math.ceil((++count/this.listFixture.length)*100);
+      // }
+      // this.dataTableService.createDataTable('statistics');
     });
   }
 
@@ -155,7 +160,7 @@ export class TeamDetailComponent implements OnInit {
   }
 
   checkCriteria(criteriaName, criteria, isHomeTeam) {
-    if(isHomeTeam){
+    if (isHomeTeam) {
       if (criteriaName.home > criteriaName.away) {
         criteria.win++;
       } else if (criteriaName.home < criteriaName.away) {
@@ -163,7 +168,7 @@ export class TeamDetailComponent implements OnInit {
       } else {
         criteria.draw++;
       }
-    }else {
+    } else {
       if (criteriaName.away > criteriaName.home) {
         criteria.win++;
       } else if (criteriaName.away < criteriaName.home) {
