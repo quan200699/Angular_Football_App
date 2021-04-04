@@ -83,21 +83,21 @@ export class TeamDetailComponent implements OnInit {
   getAllFixtureByTeamAndLeague(teamId: any, leagueId: any) {
     this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).subscribe(async data => {
       this.listFixture = data.api.fixtures;
-      // let count = 0;
-      // for (let i = 0; i < this.listFixture.length; i++) {
-      //   const homeTeam = this.listFixture[i].homeTeam;
-      //   const fixtureStatus = this.listFixture[i].statusShort;
-      //   let isHomeTeam = false;
-      //   if (homeTeam.team_id === teamId) {
-      //     isHomeTeam = true;
-      //   }
-      //   if (fixtureStatus == 'FT') {
-      //     let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
-      //         this.currentFixture++;
-      //   }
-      //   this.loading = Math.ceil((++count/this.listFixture.length)*100);
-      // }
-      // this.dataTableService.createDataTable('statistics');
+      let count = 0;
+      for (let i = 0; i < this.listFixture.length; i++) {
+        const homeTeam = this.listFixture[i].homeTeam;
+        const fixtureStatus = this.listFixture[i].statusShort;
+        let isHomeTeam = false;
+        if (homeTeam.team_id === teamId) {
+          isHomeTeam = true;
+        }
+        if (fixtureStatus == 'FT') {
+          let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
+          this.currentFixture++;
+        }
+        this.loading = Math.ceil((++count / this.listFixture.length) * 100);
+      }
+      this.dataTableService.createDataTable('statistics');
     });
   }
 
