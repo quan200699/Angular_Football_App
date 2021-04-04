@@ -19,7 +19,8 @@ export class StandingComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
               private statisticsService: StatisticsService,
-              private teamService: TeamService) {
+              private teamService: TeamService,
+              private dataTableService: DataTableService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const leagueId = +paramMap.get('leagueId');
       this.statisticName = paramMap.get('statistic');
@@ -34,7 +35,7 @@ export class StandingComponent implements OnInit {
     this.teamService.getAllTeamFromLeague(leagueId).subscribe(async data => {
       this.listTeam = data.api.teams;
       let count = 0;
-      for (let i = 0; this.listTeam.length; i++) {
+      for (let i = 0; i < this.listTeam.length; i++) {
         let teamName = this.listTeam[i].name;
         let teamLogo = this.listTeam[i].logo;
         let teamCode = this.listTeam[i].code;
@@ -75,6 +76,8 @@ export class StandingComponent implements OnInit {
         count++;
       }
       this.standing = this.sortList(this.standing);
+      console.log(this.standing);
+      this.dataTableService.createDataTable('standing');
     });
   }
 

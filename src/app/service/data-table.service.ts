@@ -19,7 +19,7 @@ export class DataTableService {
         ordering: true,
         info: true,
         autoWidth: false,
-        pageLength: 10
+        pageLength: 20
       });
     });
   }

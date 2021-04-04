@@ -7,7 +7,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="teams" class="table table-bordered table-hover">
+          <table id="standing" class="table table-bordered table-hover">
             <thead>
             <tr>
               <th></th>
@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <ng-container *ngFor="let team of sortList(standing); index as i">
+            <ng-container *ngFor="let team of standing; index as i">
               <tr>
                 <td>{{i+1}}</td>
                 <td><img [src]="team.logo" [alt]="team.code" width="50" height="50"></td>
