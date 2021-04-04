@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          Head 2 Head
+        </h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                  title="Collapse">
+            <i class="fas fa-minus"></i></button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="fixtures" class="table table-hover">
+          <tbody>
+          <ng-container *ngFor="let fixture of h2hList">
+            <tr>
+              <td>{{convertDateToString(fixture.event_date)}}</td>
+              <td style="text-align: right">
+                  <span>
+                    <img [src]="fixture.homeTeam.logo" [alt]="fixture.homeTeam.code" width="25" height="25">
+                    {{fixture.homeTeam.team_name}}
+                  </span>
+              </td>
+              <td style="text-align: center">
+                <a routerLink="/fixture/{{fixture.fixture_id}}">
+                  {{fixture.score.fulltime}}
+                </a>
+              </td>
+              <td>
+                  <span>
+                    <img [src]="fixture.awayTeam.logo" [alt]="fixture.awayTeam.code" width="25" height="25">
+                    {{fixture.awayTeam.team_name}}
+                  </span>
+              </td>
+              <td>
+                <a routerLink="/fixture/{{fixture.fixture_id}}">
+                  Statistics
+                </a>
+              </td>
+              <td></td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>

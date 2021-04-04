@@ -10,6 +10,11 @@
               {{currentTeam?.name}}
             </span>
           </h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -24,6 +29,7 @@
             <tr>
               <th>Criteria</th>
               <th>Total</th>
+              <th>AVG</th>
               <th>Win</th>
               <th>Draw</th>
               <th>Lose</th>
@@ -31,54 +37,117 @@
             </thead>
             <tbody>
             <tr>
-              <th>Total Shots:</th>
-              <th>{{getAllTotalInLeague(totalShots.total)}}</th>
-              <th>{{totalShots.win}}</th>
-              <th>{{totalShots.draw}}</th>
-              <th>{{totalShots.lose}}</th>
+              <td>Total Shots:</td>
+              <td>{{getAllTotalInLeague(totalShots.total)}}</td>
+              <td>{{(getAllTotalInLeague(totalShots.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{totalShots.win}}</td>
+              <td>{{totalShots.draw}}</td>
+              <td>{{totalShots.lose}}</td>
             </tr>
             <tr>
-              <th>Shot On Goals:</th>
-              <th>{{getAllTotalInLeague(shotOnGoals.total)}}</th>
-              <th>{{shotOnGoals.win}}</th>
-              <th>{{shotOnGoals.draw}}</th>
-              <th>{{shotOnGoals.lose}}</th>
+              <td>Shot On Goals:</td>
+              <td>{{getAllTotalInLeague(shotOnGoals.total)}}</td>
+              <td>{{(getAllTotalInLeague(shotOnGoals.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{shotOnGoals.win}}</td>
+              <td>{{shotOnGoals.draw}}</td>
+              <td>{{shotOnGoals.lose}}</td>
             </tr>
             <tr>
-              <th>Corner Kicks:</th>
-              <th>{{getAllTotalInLeague(cornerKicks.total)}}</th>
-              <th>{{cornerKicks.win}}</th>
-              <th>{{cornerKicks.draw}}</th>
-              <th>{{cornerKicks.lose}}</th>
+              <td>Corner Kicks:</td>
+              <td>{{getAllTotalInLeague(cornerKicks.total)}}</td>
+              <td>{{(getAllTotalInLeague(cornerKicks.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{cornerKicks.win}}</td>
+              <td>{{cornerKicks.draw}}</td>
+              <td>{{cornerKicks.lose}}</td>
             </tr>
             <tr>
-              <th>Offsides:</th>
-              <th>{{getAllTotalInLeague(offsides.total)}}</th>
-              <th>{{offsides.win}}</th>
-              <th>{{offsides.draw}}</th>
-              <th>{{offsides.lose}}</th>
+              <td>Offsides:</td>
+              <td>{{getAllTotalInLeague(offsides.total)}}</td>
+              <td>{{(getAllTotalInLeague(offsides.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{offsides.win}}</td>
+              <td>{{offsides.draw}}</td>
+              <td>{{offsides.lose}}</td>
             </tr>
             <tr>
-              <th>Goal Keeper Saves:</th>
-              <th>{{getAllTotalInLeague(goalKeeperSaves.total)}}</th>
-              <th>{{goalKeeperSaves.win}}</th>
-              <th>{{goalKeeperSaves.draw}}</th>
-              <th>{{goalKeeperSaves.lose}}</th>
+              <td>Goal Keeper Saves:</td>
+              <td>{{getAllTotalInLeague(goalKeeperSaves.total)}}</td>
+              <td>{{(getAllTotalInLeague(goalKeeperSaves.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{goalKeeperSaves.win}}</td>
+              <td>{{goalKeeperSaves.draw}}</td>
+              <td>{{goalKeeperSaves.lose}}</td>
             </tr>
             <tr>
-              <th>Fouls:</th>
-              <th>{{getAllTotalInLeague(fouls.total)}}</th>
-              <th>{{fouls.win}}</th>
-              <th>{{fouls.draw}}</th>
-              <th>{{fouls.lose}}</th>
+              <td>Fouls:</td>
+              <td>{{getAllTotalInLeague(fouls.total)}}</td>
+              <td>{{(getAllTotalInLeague(fouls.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{fouls.win}}</td>
+              <td>{{fouls.draw}}</td>
+              <td>{{fouls.lose}}</td>
             </tr>
             <tr>
-              <th>Yellow Cards:</th>
-              <th>{{getAllTotalInLeague(yellowCards.total)}}</th>
-              <th>{{yellowCards.win}}</th>
-              <th>{{yellowCards.draw}}</th>
-              <th>{{yellowCards.lose}}</th>
+              <td>Yellow Cards:</td>
+              <td>{{getAllTotalInLeague(yellowCards.total)}}</td>
+              <td>{{(getAllTotalInLeague(yellowCards.total) / currentFixture).toFixed(2)}}</td>
+              <td>{{yellowCards.win}}</td>
+              <td>{{yellowCards.draw}}</td>
+              <td>{{yellowCards.lose}}</td>
             </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            Fixture
+          </h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse">
+              <i class="fas fa-minus"></i></button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="fixtures" class="table table-hover">
+            <tbody>
+            <ng-container *ngFor="let fixture of listFixture">
+              <tr>
+                <td></td>
+                <td style="text-align: center">{{fixture.status}}</td>
+                <td style="text-align: right">
+                  <span>
+                    <img [src]="fixture.homeTeam.logo" [alt]="fixture.homeTeam.code" width="25" height="25">
+                    {{fixture.homeTeam.team_name}}
+                  </span>
+                </td>
+                <td style="text-align: center">
+                  <a routerLink="/fixture/{{fixture.fixture_id}}" *ngIf="fixture.statusShort == 'FT'">
+                    {{fixture.score.fulltime}}
+                  </a>
+                  <span *ngIf="fixture.statusShort != 'FT'">-</span>
+                </td>
+                <td>
+                  <span>
+                    <img [src]="fixture.awayTeam.logo" [alt]="fixture.awayTeam.code" width="25" height="25">
+                    {{fixture.awayTeam.team_name}}
+                  </span>
+                </td>
+                <td>
+                  <a routerLink="/h2h/{{fixture.homeTeam.team_id}}/{{fixture.awayTeam.team_id}}">
+                    H2H
+                  </a>
+                </td>
+                <td></td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>

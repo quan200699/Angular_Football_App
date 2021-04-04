@@ -1,0 +1,46 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Standing For {{statisticName}}</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="standing" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Logo</th>
+              <th>Team</th>
+              <th>Win</th>
+              <th>Draw</th>
+              <th>Lose</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let team of standing; index as i">
+              <tr>
+                <td>{{i+1}}</td>
+                <td><img [src]="team.logo" [alt]="team.code" width="50" height="50"></td>
+                <td>{{team.teamName}}</td>
+                <td>{{team.data.win}}</td>
+                <td>{{team.data.draw}}</td>
+                <td>{{team.data.lose}}</td>
+                <td>{{team.data.total}}</td>
+                <td><a [routerLink]="[team.team_id]">Details</a></td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+</div>
+<!-- /.row -->
