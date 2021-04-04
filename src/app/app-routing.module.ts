@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./h2h/h2h.module').then(module => module.H2hModule)
   },
   {
-    path: 'standing',
+    path: 'standing/:leagueId',
     loadChildren: () => import('./standing/standing.module').then(module => module.StandingModule)
   },
   {
