@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: 'league/:leagueId',
     loadChildren: () => import('./team/team.module').then(module => module.TeamModule)
+  },
+  {
+    path: 'fixture/:fixtureId',
+    loadChildren: () => import('./fixture/fixture.module').then(module => module.FixtureModule)
   }
 ];
 
