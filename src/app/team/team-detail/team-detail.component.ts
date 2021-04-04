@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {FixtureService} from '../../service/fixture.service';
 import {StatisticsService} from '../../service/statistics.service';
+import {TeamService} from '../../service/team.service';
 
 @Component({
   selector: 'app-team-detail',
@@ -28,7 +29,7 @@ export class TeamDetailComponent implements OnInit {
     draw: 0,
     lose: 0
   };
-  offSides: any = {
+  offsides: any = {
     total: [],
     win: 0,
     draw: 0,
@@ -52,13 +53,16 @@ export class TeamDetailComponent implements OnInit {
     draw: 0,
     lose: 0
   };
+  currentTeam: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
-              private statisticsService: StatisticsService) {
+              private statisticsService: StatisticsService,
+              private teamService: TeamService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const teamId = +paramMap.get('teamId');
       const leagueId = +paramMap.get('leagueId');
+      this.getTeamById(teamId);
       this.getAllFixtureByTeamAndLeague(teamId, leagueId);
     });
   }
@@ -66,28 +70,43 @@ export class TeamDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  getTeamById(id) {
+    this.teamService.getTeamById(id).subscribe(data => {
+      this.currentTeam = data.api.teams[0];
+    });
+  }
+
   getAllFixtureByTeamAndLeague(teamId: any, leagueId: any) {
-    this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).subscribe(data => {
+    this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).subscribe(async data => {
       this.listFixture = data.api.fixtures;
       for (let i = 0; i < this.listFixture.length; i++) {
         const homeTeam = this.listFixture[i].homeTeam;
+        const fixtureStatus = this.listFixture[i].statusShort;
         let isHomeTeam = false;
         if (homeTeam.team_id === teamId) {
           isHomeTeam = true;
         }
-        setTimeout(() => {
-          this.getStatisticsByFixtureId(this.listFixture[i].fixture_id, isHomeTeam);
-        }, 30000);
+        if (fixtureStatus == 'FT') {
+          let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
+          console.log(x);
+        }
       }
     });
+  }
+
+  waitingForData(fixtureId, isHomeTeam) {
+    return new Promise((resolve, reject) => setTimeout(() => {
+      this.getStatisticsByFixtureId(fixtureId, isHomeTeam);
+      resolve('success');
+    }, 5000));
   }
 
   getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any) {
     this.statisticsService.getStatisticsByFixtureId(fixtureId).subscribe(data => {
       let totalShot = data.api.statistics['Total Shots'];
-      let shotOnGoal = data.api.statistics['Shot On Goals'];
+      let shotOnGoal = data.api.statistics['Shots on Goal'];
       let cornerKick = data.api.statistics['Corner Kicks'];
-      let offSide = data.api.statistics.Offsides;
+      let offside = data.api.statistics.Offsides;
       let goalKeeperSave = data.api.statistics['Goalkeeper Saves'];
       let foul = data.api.statistics.Fouls;
       let yellowCard = data.api.statistics['Yellow Cards'];
@@ -107,10 +126,10 @@ export class TeamDetailComponent implements OnInit {
         } else if (cornerKick.home < cornerKick.away) {
           this.cornerKicks.lose++;
         }
-        if (offSide.home > offSide.away) {
-          this.offSides.win++;
-        } else if (offSide.home < offSide.away) {
-          this.offSides.lose++;
+        if (offside.home > offside.away) {
+          this.offsides.win++;
+        } else if (offside.home < offside.away) {
+          this.offsides.lose++;
         }
         if (goalKeeperSave.home > goalKeeperSave.away) {
           this.goalKeeperSaves.win++;
@@ -130,7 +149,7 @@ export class TeamDetailComponent implements OnInit {
         totalShot = totalShot.home;
         shotOnGoal = shotOnGoal.home;
         cornerKick = cornerKick.home;
-        offSide = offSide.home;
+        offside = offside.home;
         goalKeeperSave = goalKeeperSave.home;
         foul = foul.home;
         yellowCard = yellowCard.home;
@@ -151,10 +170,10 @@ export class TeamDetailComponent implements OnInit {
         } else if (cornerKick.home > cornerKick.away) {
           this.cornerKicks.lose++;
         }
-        if (offSide.home < offSide.away) {
-          this.offSides.win++;
-        } else if (offSide.home > offSide.away) {
-          this.offSides.lose++;
+        if (offside.home < offside.away) {
+          this.offsides.win++;
+        } else if (offside.home > offside.away) {
+          this.offsides.lose++;
         }
         if (goalKeeperSave.home < goalKeeperSave.away) {
           this.goalKeeperSaves.win++;
@@ -174,7 +193,7 @@ export class TeamDetailComponent implements OnInit {
         totalShot = totalShot.away;
         shotOnGoal = shotOnGoal.away;
         cornerKick = cornerKick.away;
-        offSide = offSide.away;
+        offside = offside.away;
         goalKeeperSave = goalKeeperSave.away;
         foul = foul.away;
         yellowCard = yellowCard.away;
@@ -188,8 +207,8 @@ export class TeamDetailComponent implements OnInit {
       if (cornerKick.home == cornerKick.away) {
         this.cornerKicks.draw++;
       }
-      if (offSide.home == offSide.away) {
-        this.offSides.draw++;
+      if (offside.home == offside.away) {
+        this.offsides.draw++;
       }
       if (foul.home == foul.away) {
         this.fouls.draw++;
@@ -200,11 +219,18 @@ export class TeamDetailComponent implements OnInit {
       this.totalShots.total.push(totalShot);
       this.shotOnGoals.total.push(shotOnGoal);
       this.cornerKicks.total.push(cornerKick);
-      this.offSides.total.push(offSide);
+      this.offsides.total.push(offside);
       this.goalKeeperSaves.total.push(goalKeeperSave);
       this.fouls.total.push(foul);
       this.yellowCards.total.push(yellowCard);
     });
   }
 
+  getAllTotalInLeague(array): number {
+    let sum = 0;
+    for (let i = 0; i < array.length; i++) {
+      sum += +array[i];
+    }
+    return sum;
+  }
 }

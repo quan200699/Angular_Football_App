@@ -15,7 +15,7 @@ export class ListTeamComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private dataTableService: DataTableService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      const id = +paramMap.get('id');
+      const id = +paramMap.get('leagueId');
       this.getAllTeamByLeagueId(id);
     });
   }

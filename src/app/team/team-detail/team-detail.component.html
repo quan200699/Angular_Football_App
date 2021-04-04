@@ -1,0 +1,85 @@
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <span>
+              <img [src]="currentTeam.logo" [alt]="currentTeam.code" width="100" height="100">
+              {{currentTeam.name}}
+            </span>
+          </h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="statistics" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>Criteria</th>
+              <th>Total</th>
+              <th>Win</th>
+              <th>Draw</th>
+              <th>Lose</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th>Total Shots:</th>
+              <th>{{getAllTotalInLeague(totalShots.total)}}</th>
+              <th>{{totalShots.win}}</th>
+              <th>{{totalShots.draw}}</th>
+              <th>{{totalShots.lose}}</th>
+            </tr>
+            <tr>
+              <th>Shot On Goals:</th>
+              <th>{{getAllTotalInLeague(shotOnGoals.total)}}</th>
+              <th>{{shotOnGoals.win}}</th>
+              <th>{{shotOnGoals.draw}}</th>
+              <th>{{shotOnGoals.lose}}</th>
+            </tr>
+            <tr>
+              <th>Corner Kicks:</th>
+              <th>{{getAllTotalInLeague(cornerKicks.total)}}</th>
+              <th>{{cornerKicks.win}}</th>
+              <th>{{cornerKicks.draw}}</th>
+              <th>{{cornerKicks.lose}}</th>
+            </tr>
+            <tr>
+              <th>Offsides:</th>
+              <th>{{getAllTotalInLeague(offsides.total)}}</th>
+              <th>{{offsides.win}}</th>
+              <th>{{offsides.draw}}</th>
+              <th>{{offsides.lose}}</th>
+            </tr>
+            <tr>
+              <th>Goal Keeper Saves:</th>
+              <th>{{getAllTotalInLeague(goalKeeperSaves.total)}}</th>
+              <th>{{goalKeeperSaves.win}}</th>
+              <th>{{goalKeeperSaves.draw}}</th>
+              <th>{{goalKeeperSaves.lose}}</th>
+            </tr>
+            <tr>
+              <th>Fouls:</th>
+              <th>{{getAllTotalInLeague(fouls.total)}}</th>
+              <th>{{fouls.win}}</th>
+              <th>{{fouls.draw}}</th>
+              <th>{{fouls.lose}}</th>
+            </tr>
+            <tr>
+              <th>Yellow Cards:</th>
+              <th>{{getAllTotalInLeague(yellowCards.total)}}</th>
+              <th>{{yellowCards.win}}</th>
+              <th>{{yellowCards.draw}}</th>
+              <th>{{yellowCards.lose}}</th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+</div>
+<!-- /.row -->

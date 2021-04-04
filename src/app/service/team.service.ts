@@ -16,4 +16,8 @@ export class TeamService {
   getAllTeamFromLeague(id: number): Observable<any> {
     return this.http.get<any>(`${API_URL}/teams/league/${id}`);
   }
+
+  getTeamById(id: number): Observable<any> {
+    return this.http.get<any>(`${API_URL}/teams/team/${id}`);
+  }
 }
