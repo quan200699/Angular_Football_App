@@ -22,6 +22,7 @@ export class StandingComponent implements OnInit {
               private teamService: TeamService,
               private dataTableService: DataTableService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+      this.standing = [];
       const leagueId = +paramMap.get('leagueId');
       this.statisticName = paramMap.get('statistic');
       this.getAllTeamByLeagueId(leagueId, this.statisticName);
