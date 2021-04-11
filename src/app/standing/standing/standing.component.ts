@@ -15,6 +15,7 @@ export class StandingComponent implements OnInit {
   listFixture: any = [];
   standing: any = [];
   statisticName: string = '';
+  loading = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -70,13 +71,13 @@ export class StandingComponent implements OnInit {
               statistic = statistic.away;
             }
             this.standing[count].data.total += +statistic;
-            let x = await this.waitingForData();
+            // let x = await this.waitingForData();
           }
         }
         count++;
+        this.loading = Math.ceil((count / this.listFixture.length) * 100);
       }
       this.standing = this.sortList(this.standing);
-      console.log(this.standing);
       this.dataTableService.createDataTable('standing');
     });
   }
@@ -88,7 +89,7 @@ export class StandingComponent implements OnInit {
   waitingForData() {
     return new Promise((resolve, reject) => setTimeout(() => {
       resolve('success');
-    }, 2000));
+    }, 1000));
   }
 
   getStatisticsByFixtureIdToPromise(fixtureId: any) {
@@ -97,20 +98,20 @@ export class StandingComponent implements OnInit {
 
   checkCriteria(criteriaName, criteria, isHomeTeam) {
     if (isHomeTeam) {
-      if (criteriaName.home > criteriaName.away) {
+      if (+criteriaName.home > +criteriaName.away) {
         criteria.win++;
-      } else if (criteriaName.home < criteriaName.away) {
-        criteria.lose++;
-      } else {
+      } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+      } else {
+        criteria.lose++;
       }
     } else {
-      if (criteriaName.away > criteriaName.home) {
-        criteria.win++;
-      } else if (criteriaName.away < criteriaName.home) {
+      if (+criteriaName.home > +criteriaName.away) {
         criteria.lose++;
-      } else {
+      } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+      } else {
+        criteria.win++;
       }
     }
   }

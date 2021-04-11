@@ -105,7 +105,7 @@ export class TeamDetailComponent implements OnInit {
     return new Promise((resolve, reject) => setTimeout(() => {
       this.getStatisticsByFixtureId(fixtureId, isHomeTeam);
       resolve('success');
-    }, 3000));
+    }, 500));
   }
 
   getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any) {
