@@ -2,8 +2,13 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Standing For {{statisticName}}</h3>
+        <div class="card-header row">
+          <h3 class="card-title col-9">Standing For {{statisticName}}</h3>
+          <div class="col-3">
+            <select [(ngModel)]="statisticName" (change)="changeStatisticStandingShow(statisticName)">
+              <option *ngFor="let statistic of statisticNames" value="{{statistic}}">{{statistic}}</option>
+            </select>
+          </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -29,7 +34,7 @@
             <tbody>
             <ng-container *ngFor="let team of standing; index as i">
               <tr>
-                <td>{{i+1}}</td>
+                <td>{{i + 1}}</td>
                 <td><img [src]="team.logo" [alt]="team.code" width="50" height="50"></td>
                 <td>{{team.teamName}}</td>
                 <td>{{team.data.win}}</td>

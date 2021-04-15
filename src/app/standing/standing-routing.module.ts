@@ -5,7 +5,7 @@ import {StandingComponent} from './standing/standing.component';
 
 const routes: Routes = [
   {
-    path: ':statistic',
+    path: '',
     component: StandingComponent
   }
 ];
