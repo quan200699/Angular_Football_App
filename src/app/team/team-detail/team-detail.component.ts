@@ -161,20 +161,20 @@ export class TeamDetailComponent implements OnInit {
 
   checkCriteria(criteriaName, criteria, isHomeTeam) {
     if (isHomeTeam) {
-      if (criteriaName.home > criteriaName.away) {
+      if (+criteriaName.home > +criteriaName.away) {
         criteria.win++;
-      } else if (criteriaName.home < criteriaName.away) {
-        criteria.lose++;
-      } else {
+      } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+      } else {
+        criteria.lose++;
       }
     } else {
-      if (criteriaName.away > criteriaName.home) {
-        criteria.win++;
-      } else if (criteriaName.away < criteriaName.home) {
+      if (+criteriaName.home > +criteriaName.away) {
         criteria.lose++;
-      } else {
+      } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+      } else {
+        criteria.win++;
       }
     }
   }

@@ -25,62 +25,70 @@ export class StandingComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const leagueId = +paramMap.get('leagueId');
       this.statisticName = paramMap.get('statistic');
-      this.getAllTeamByLeagueId(leagueId, this.statisticName);
+      this.getData(leagueId, this.statisticName);
     });
   }
 
   ngOnInit() {
   }
 
-  getAllTeamByLeagueId(leagueId, statisticName) {
-    this.teamService.getAllTeamFromLeague(leagueId).subscribe(async data => {
-      this.listTeam = data.api.teams;
-      let count = 0;
-      for (let i = 0; i < this.listTeam.length; i++) {
-        let teamName = this.listTeam[i].name;
-        let teamLogo = this.listTeam[i].logo;
-        let teamCode = this.listTeam[i].code;
-        this.standing[count] = {
-          team_id: this.listTeam[i].team_id,
-          teamName: teamName,
-          logo: teamLogo,
-          code: teamCode,
-          data: {
-            total: 0,
-            win: 0,
-            draw: 0,
-            lose: 0
-          }
-        };
-        let data1 = await this.getAllFixtureByTeamAndLeagueToPromise(this.listTeam[i].team_id, leagueId);
-        this.listFixture = data1.api.fixtures;
-        for (let j = 0; j < this.listFixture.length; j++) {
-          const homeTeam = this.listFixture[j].homeTeam;
-          const fixtureStatus = this.listFixture[j].statusShort;
-          let isHomeTeam = false;
-          if (homeTeam.team_id === this.listTeam[i].team_id) {
-            isHomeTeam = true;
-          }
-          if (fixtureStatus == 'FT') {
-            let data2 = await this.getStatisticsByFixtureIdToPromise(this.listFixture[i].fixture_id);
-            let statistic = data2.api.statistics[statisticName];
-            this.checkCriteria(statistic, this.standing[count].data, isHomeTeam);
-            if (isHomeTeam) {
-              statistic = statistic.home;
-            } else {
-              statistic = statistic.away;
-            }
-            this.standing[count].data.total += +statistic;
-            // let x = await this.waitingForData();
-          }
-        }
-        count++;
-        this.loading = Math.ceil((count / this.listFixture.length) * 100);
-      }
-      this.standing = this.sortList(this.standing);
-      this.dataTableService.createDataTable('standing');
-    });
+  getAllTeamByLeagueIdUsingPromise(leagueId) {
+    return this.teamService.getAllTeamFromLeague(leagueId).toPromise();
   }
+
+  async getData(leagueId, statisticName) {
+    let dataForAllTeam = await this.getAllTeamByLeagueIdUsingPromise(leagueId);
+    this.listTeam = dataForAllTeam.api.teams;
+    let count = 0;
+    for (let team of this.listTeam) {
+      let teamFixture = await this.getAllFixtureTeamDataUsingAsync(team, leagueId);
+      this.listFixture = teamFixture.api.fixtures;
+      let x = 0;
+      for (let fixture of this.listFixture) {
+        const homeTeam = fixture.homeTeam;
+        const fixtureStatus = fixture.statusShort;
+        let isHomeTeam = false;
+        if (homeTeam.team_id === team.team_id) {
+          isHomeTeam = true;
+        }
+        if (fixtureStatus == 'FT') {
+          let data2 = await this.getStatisticsByFixtureIdToPromise(fixture.fixture_id);
+          let statistic = data2.api.statistics[statisticName];
+          this.checkCriteria(statistic, this.standing[count].data, isHomeTeam);
+          if (isHomeTeam) {
+            statistic = statistic.home;
+          } else {
+            statistic = statistic.away;
+          }
+          this.standing[count].data.total += +statistic;
+        }
+      }
+      count++;
+      this.loading = Math.ceil((count / this.listFixture.length) * 100);
+    }
+    this.standing = this.sortList(this.standing);
+    this.dataTableService.createDataTable('standing');
+  }
+
+  async getAllFixtureTeamDataUsingAsync(team, leagueId) {
+    let teamName = team.name;
+    let teamLogo = team.logo;
+    let teamCode = team.code;
+    this.standing.push({
+      team_id: team.team_id,
+      teamName: teamName,
+      logo: teamLogo,
+      code: teamCode,
+      data: {
+        total: 0,
+        win: 0,
+        draw: 0,
+        lose: 0
+      }
+    });
+    return await this.getAllFixtureByTeamAndLeagueToPromise(team.team_id, leagueId);
+  }
+
 
   getAllFixtureByTeamAndLeagueToPromise(teamId: any, leagueId) {
     return this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).toPromise();
