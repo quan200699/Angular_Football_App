@@ -41,7 +41,7 @@
                 <td>{{team.data.draw}}</td>
                 <td>{{team.data.lose}}</td>
                 <td>{{team.data.total}}</td>
-                <td><a [routerLink]="[team.team_id]">Details</a></td>
+                <td><a [routerLink]="['/league',league,'teams',team.team_id]">Details</a></td>
               </tr>
             </ng-container>
             </tbody>

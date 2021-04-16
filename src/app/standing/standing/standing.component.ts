@@ -38,6 +38,7 @@ export class StandingComponent implements OnInit {
   statisticNames: string[] = [TOTAL_SHOTS, SHOT_ON_GOALS, CORNER_KICKS, FOULS, OFFSIDES, GOAL_KEEPER_SAVES, YELLOW_CARDS];
   statisticName: string = TOTAL_SHOTS;
   loading = 0;
+  league: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -47,6 +48,7 @@ export class StandingComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.standing = this.standingForTotalShot;
       const leagueId = +paramMap.get('leagueId');
+      this.league = +paramMap.get('leagueId');
       this.getData(leagueId);
     });
   }
@@ -139,18 +141,24 @@ export class StandingComponent implements OnInit {
             yellowCard = yellowCard.away;
           }
           this.standingForTotalShot[count].data.total += +totalShot;
-          this.standingForShotOnGoals[count].data.total += +totalShot;
-          this.standingForCornerKicks[count].data.total += +totalShot;
-          this.standingForOffsides[count].data.total += +totalShot;
-          this.standingForGoalKeeperSaves[count].data.total += +totalShot;
-          this.standingForFouls[count].data.total += +totalShot;
-          this.standingForYellowCards[count].data.total += +totalShot;
+          this.standingForShotOnGoals[count].data.total += +shotOnGoal;
+          this.standingForCornerKicks[count].data.total += +cornerKick;
+          this.standingForOffsides[count].data.total += +offside;
+          this.standingForGoalKeeperSaves[count].data.total += +goalKeeperSave;
+          this.standingForFouls[count].data.total += +foul;
+          this.standingForYellowCards[count].data.total += +yellowCard;
         }
       }
       count++;
-      this.loading = Math.ceil((count / this.listFixture.length) * 100);
+      this.loading = Math.ceil((count / this.listTeam.length) * 100);
     }
     this.standingForTotalShot = this.sortList(this.standingForTotalShot);
+    this.standingForShotOnGoals = this.sortList(this.standingForShotOnGoals);
+    this.standingForCornerKicks = this.sortList(this.standingForCornerKicks);
+    this.standingForOffsides = this.sortList(this.standingForOffsides);
+    this.standingForGoalKeeperSaves = this.sortList(this.standingForGoalKeeperSaves);
+    this.standingForFouls = this.sortList(this.standingForFouls);
+    this.standingForYellowCards = this.sortList(this.standingForYellowCards);
     this.dataTableService.createDataTable('standing');
   }
 
