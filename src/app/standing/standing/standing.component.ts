@@ -5,19 +5,19 @@ import {StatisticsService} from '../../service/statistics.service';
 import {TeamService} from '../../service/team.service';
 import {DataTableService} from '../../service/data-table.service';
 
-const SHOT_ON_GOALS = 'Shots on Goal';
+export const SHOT_ON_GOALS = 'Shots on Goal';
 
-const TOTAL_SHOTS = 'Total Shots';
+export const TOTAL_SHOTS = 'Total Shots';
 
-const CORNER_KICKS = 'Corner Kicks';
+export const CORNER_KICKS = 'Corner Kicks';
 
-const GOAL_KEEPER_SAVES = 'Goalkeeper Saves';
+export const GOAL_KEEPER_SAVES = 'Goalkeeper Saves';
 
-const YELLOW_CARDS = 'Yellow Cards';
+export const YELLOW_CARDS = 'Yellow Cards';
 
-const FOULS = 'Fouls';
+export const FOULS = 'Fouls';
 
-const OFFSIDES = 'Offsides';
+export const OFFSIDES = 'Offsides';
 
 @Component({
   selector: 'app-total-shots',

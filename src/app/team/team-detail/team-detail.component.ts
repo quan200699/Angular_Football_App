@@ -4,6 +4,7 @@ import {FixtureService} from '../../service/fixture.service';
 import {StatisticsService} from '../../service/statistics.service';
 import {TeamService} from '../../service/team.service';
 import {DataTableService} from '../../service/data-table.service';
+import {CORNER_KICKS, GOAL_KEEPER_SAVES, SHOT_ON_GOALS, TOTAL_SHOTS, YELLOW_CARDS} from '../../standing/standing/standing.component';
 
 @Component({
   selector: 'app-team-detail',
@@ -109,13 +110,13 @@ export class TeamDetailComponent implements OnInit {
 
   getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any) {
     this.statisticsService.getStatisticsByFixtureId(fixtureId).subscribe(data => {
-      let totalShot = data.api.statistics['Total Shots'];
-      let shotOnGoal = data.api.statistics['Shots on Goal'];
-      let cornerKick = data.api.statistics['Corner Kicks'];
+      let totalShot = data.api.statistics[TOTAL_SHOTS];
+      let shotOnGoal = data.api.statistics[SHOT_ON_GOALS];
+      let cornerKick = data.api.statistics[CORNER_KICKS];
       let offside = data.api.statistics.Offsides;
-      let goalKeeperSave = data.api.statistics['Goalkeeper Saves'];
+      let goalKeeperSave = data.api.statistics[GOAL_KEEPER_SAVES];
       let foul = data.api.statistics.Fouls;
-      let yellowCard = data.api.statistics['Yellow Cards'];
+      let yellowCard = data.api.statistics[YELLOW_CARDS];
       this.checkCriteria(totalShot, this.totalShots, isHomeTeam);
       this.checkCriteria(shotOnGoal, this.shotOnGoals, isHomeTeam);
       this.checkCriteria(cornerKick, this.cornerKicks, isHomeTeam);
