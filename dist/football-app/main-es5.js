@@ -91,7 +91,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<aside class=\"main-sidebar sidebar-dark-primary elevation-4\">\r\n  <!-- Brand Logo -->\r\n  <a routerLink=\"\" class=\"brand-link\">\r\n    <span class=\"brand-text font-weight-light\">Football</span>\r\n  </a>\r\n\r\n  <!--   Sidebar-->\r\n  <div class=\"sidebar\" style=\"height: 700px\">\r\n\r\n    <!-- Sidebar Menu -->\r\n    <nav class=\"mt-2\">\r\n      <ul class=\"nav nav-pills nav-sidebar flex-column\" data-widget=\"treeview\" role=\"menu\" data-accordion=\"false\">\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2790\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Premier League\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2755\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Bundesliga\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2664\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Ligue 1\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2833\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              LaLiga\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2826\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Primeira Liga\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2857\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Serie A\r\n            </p>\r\n          </a>\r\n        </li>\r\n        <li class=\"nav-item\">\r\n          <a routerLink=\"/league/2679\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Russian Premier League\r\n            </p>\r\n          </a>\r\n        </li>\r\n      </ul>\r\n    </nav>\r\n    <!-- /.sidebar-menu -->\r\n  </div>\r\n  <!--   /.sidebar-->\r\n</aside>\r\n";
+    __webpack_exports__["default"] = "<aside class=\"main-sidebar sidebar-dark-primary elevation-4\">\r\n  <!-- Brand Logo -->\r\n  <a routerLink=\"\" class=\"brand-link\">\r\n    <span class=\"brand-text font-weight-light\">Football</span>\r\n  </a>\r\n\r\n  <!--   Sidebar-->\r\n  <div class=\"sidebar\">\r\n\r\n    <!-- Sidebar Menu -->\r\n    <nav class=\"mt-2\">\r\n      <ul class=\"nav nav-pills nav-sidebar flex-column\" data-widget=\"treeview\" role=\"menu\" data-accordion=\"false\">\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Premier League\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2790\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Bundesliga\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2755\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Ligue 1\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2664\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              LaLiga\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2833\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Primeira Liga\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2826\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Serie A\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2857\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n        <li class=\"nav-item has-treeview\">\r\n          <a href=\"#\" class=\"nav-link\">\r\n            <i class=\"nav-icon fas fa-list\"></i>\r\n            <p>\r\n              Russian Premier League\r\n              <i class=\"right fas fa-angle-left\"></i>\r\n            </p>\r\n          </a>\r\n          <ul class=\"nav nav-treeview\">\r\n            <li class=\"nav-item\">\r\n              <a href=\"/standing/2679\" class=\"nav-link\">\r\n                <i class=\"far fa-circle nav-icon\"></i>\r\n                <p>Total Shots</p>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </li>\r\n      </ul>\r\n    </nav>\r\n    <!-- /.sidebar-menu -->\r\n  </div>\r\n  <!--   /.sidebar-->\r\n</aside>\r\n";
     /***/
   },
 
@@ -740,12 +740,45 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var routes = [{
       path: 'league/:leagueId',
       loadChildren: function loadChildren() {
-        return __webpack_require__.e(
+        return Promise.all(
         /*! import() | team-team-module */
-        "team-team-module").then(__webpack_require__.bind(null,
+        [__webpack_require__.e("default~standing-standing-module~team-team-module"), __webpack_require__.e("team-team-module")]).then(__webpack_require__.bind(null,
         /*! ./team/team.module */
         "./src/app/team/team.module.ts")).then(function (module) {
           return module.TeamModule;
+        });
+      }
+    }, {
+      path: 'h2h',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | h2h-h2h-module */
+        "h2h-h2h-module").then(__webpack_require__.bind(null,
+        /*! ./h2h/h2h.module */
+        "./src/app/h2h/h2h.module.ts")).then(function (module) {
+          return module.H2hModule;
+        });
+      }
+    }, {
+      path: 'standing/:leagueId',
+      loadChildren: function loadChildren() {
+        return Promise.all(
+        /*! import() | standing-standing-module */
+        [__webpack_require__.e("default~compare-compare-module~standing-standing-module"), __webpack_require__.e("default~standing-standing-module~team-team-module"), __webpack_require__.e("standing-standing-module")]).then(__webpack_require__.bind(null,
+        /*! ./standing/standing.module */
+        "./src/app/standing/standing.module.ts")).then(function (module) {
+          return module.StandingModule;
+        });
+      }
+    }, {
+      path: 'fixture',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | fixture-fixture-module */
+        "fixture-fixture-module").then(__webpack_require__.bind(null,
+        /*! ./fixture/fixture.module */
+        "./src/app/fixture/fixture.module.ts")).then(function (module) {
+          return module.FixtureModule;
         });
       }
     }];

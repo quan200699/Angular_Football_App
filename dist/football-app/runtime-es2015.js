@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"team-team-module":"team-team-module"}[chunkId]||chunkId) + "-es2015.js"
+/******/ 		return __webpack_require__.p + "" + ({"default~compare-compare-module~standing-standing-module":"default~compare-compare-module~standing-standing-module","default~standing-standing-module~team-team-module":"default~standing-standing-module~team-team-module","standing-standing-module":"standing-standing-module","team-team-module":"team-team-module","fixture-fixture-module":"fixture-fixture-module","h2h-h2h-module":"h2h-h2h-module","compare-compare-module":"compare-compare-module"}[chunkId]||chunkId) + "-es2015.js"
 /******/ 	}
 /******/
 /******/ 	// The require function

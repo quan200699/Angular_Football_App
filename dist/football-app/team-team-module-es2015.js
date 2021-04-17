@@ -22,171 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\r\n  <div class=\"row\">\r\n    <div class=\"col-12\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          <h3 class=\"card-title\">\r\n            <span>\r\n              <img [src]=\"currentTeam?.logo\" [alt]=\"currentTeam?.code\" width=\"100\" height=\"100\"\r\n                   style=\"margin-right: 30px\">\r\n              {{currentTeam?.name}}\r\n            </span>\r\n          </h3>\r\n        </div>\r\n        <!-- /.card-header -->\r\n        <div class=\"card-body\">\r\n          <div class=\"progress progress-sm active\">\r\n            <div class=\"progress-bar bg-success progress-bar-striped\" role=\"progressbar\"\r\n                 aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" [style.width]=\"loading+'%'\">\r\n              <span class=\"sr-only\">{{loading}}% Complete</span>\r\n            </div>\r\n          </div>\r\n          <table id=\"statistics\" class=\"table table-bordered table-hover\">\r\n            <thead>\r\n            <tr>\r\n              <th>Criteria</th>\r\n              <th>Total</th>\r\n              <th>Win</th>\r\n              <th>Draw</th>\r\n              <th>Lose</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n            <tr>\r\n              <th>Total Shots:</th>\r\n              <th>{{getAllTotalInLeague(totalShots.total)}}</th>\r\n              <th>{{totalShots.win}}</th>\r\n              <th>{{totalShots.draw}}</th>\r\n              <th>{{totalShots.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Shot On Goals:</th>\r\n              <th>{{getAllTotalInLeague(shotOnGoals.total)}}</th>\r\n              <th>{{shotOnGoals.win}}</th>\r\n              <th>{{shotOnGoals.draw}}</th>\r\n              <th>{{shotOnGoals.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Corner Kicks:</th>\r\n              <th>{{getAllTotalInLeague(cornerKicks.total)}}</th>\r\n              <th>{{cornerKicks.win}}</th>\r\n              <th>{{cornerKicks.draw}}</th>\r\n              <th>{{cornerKicks.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Offsides:</th>\r\n              <th>{{getAllTotalInLeague(offsides.total)}}</th>\r\n              <th>{{offsides.win}}</th>\r\n              <th>{{offsides.draw}}</th>\r\n              <th>{{offsides.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Goal Keeper Saves:</th>\r\n              <th>{{getAllTotalInLeague(goalKeeperSaves.total)}}</th>\r\n              <th>{{goalKeeperSaves.win}}</th>\r\n              <th>{{goalKeeperSaves.draw}}</th>\r\n              <th>{{goalKeeperSaves.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Fouls:</th>\r\n              <th>{{getAllTotalInLeague(fouls.total)}}</th>\r\n              <th>{{fouls.win}}</th>\r\n              <th>{{fouls.draw}}</th>\r\n              <th>{{fouls.lose}}</th>\r\n            </tr>\r\n            <tr>\r\n              <th>Yellow Cards:</th>\r\n              <th>{{getAllTotalInLeague(yellowCards.total)}}</th>\r\n              <th>{{yellowCards.win}}</th>\r\n              <th>{{yellowCards.draw}}</th>\r\n              <th>{{yellowCards.lose}}</th>\r\n            </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <!-- /.card-body -->\r\n      </div>\r\n      <!-- /.card -->\r\n    </div>\r\n    <!-- /.col -->\r\n  </div>\r\n</div>\r\n<!-- /.row -->\r\n");
-
-/***/ }),
-
-/***/ "./src/app/service/data-table.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/data-table.service.ts ***!
-  \***********************************************/
-/*! exports provided: DataTableService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataTableService", function() { return DataTableService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
-
-let DataTableService = class DataTableService {
-    constructor() {
-    }
-    createDataTable(id) {
-        $(() => {
-            $(`#${id}`).DataTable({
-                paging: true,
-                lengthChange: false,
-                searching: false,
-                ordering: true,
-                info: true,
-                autoWidth: false,
-                pageLength: 10
-            });
-        });
-    }
-};
-DataTableService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], DataTableService);
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/fixture.service.ts":
-/*!********************************************!*\
-  !*** ./src/app/service/fixture.service.ts ***!
-  \********************************************/
-/*! exports provided: FixtureService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FixtureService", function() { return FixtureService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-
-
-
-
-const API_URL = `${_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl}`;
-let FixtureService = class FixtureService {
-    constructor(http) {
-        this.http = http;
-    }
-    getAllFixtureByTeamAndByLeague(teamId, leagueId) {
-        return this.http.get(`${API_URL}/fixtures/team/${teamId}/${leagueId}`);
-    }
-};
-FixtureService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
-];
-FixtureService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], FixtureService);
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/statistics.service.ts":
-/*!***********************************************!*\
-  !*** ./src/app/service/statistics.service.ts ***!
-  \***********************************************/
-/*! exports provided: StatisticsService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatisticsService", function() { return StatisticsService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-
-
-
-
-const API_URL = `${_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl}`;
-let StatisticsService = class StatisticsService {
-    constructor(http) {
-        this.http = http;
-    }
-    getStatisticsByFixtureId(id) {
-        return this.http.get(`${API_URL}/statistics/fixture/${id}/`);
-    }
-};
-StatisticsService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
-];
-StatisticsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], StatisticsService);
-
-
-
-/***/ }),
-
-/***/ "./src/app/service/team.service.ts":
-/*!*****************************************!*\
-  !*** ./src/app/service/team.service.ts ***!
-  \*****************************************/
-/*! exports provided: TeamService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeamService", function() { return TeamService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-
-
-
-
-const API_URL = `${_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiUrl}`;
-let TeamService = class TeamService {
-    constructor(http) {
-        this.http = http;
-    }
-    getAllTeamFromLeague(id) {
-        return this.http.get(`${API_URL}/teams/league/${id}`);
-    }
-    getTeamById(id) {
-        return this.http.get(`${API_URL}/teams/team/${id}`);
-    }
-};
-TeamService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
-];
-TeamService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], TeamService);
-
-
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"content\">\r\n  <div class=\"row\">\r\n    <div class=\"col-12\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          <h3 class=\"card-title\">\r\n            <span>\r\n              <img [src]=\"currentTeam?.logo\" [alt]=\"currentTeam?.code\" width=\"100\" height=\"100\"\r\n                   style=\"margin-right: 30px\">\r\n              {{currentTeam?.name}}\r\n            </span>\r\n          </h3>\r\n          <div class=\"card-tools\">\r\n            <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\"\r\n                    title=\"Collapse\">\r\n              <i class=\"fas fa-minus\"></i></button>\r\n          </div>\r\n        </div>\r\n        <!-- /.card-header -->\r\n        <div class=\"card-body\">\r\n          <div class=\"progress progress-sm active\">\r\n            <div class=\"progress-bar bg-success progress-bar-striped\" role=\"progressbar\"\r\n                 aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" [style.width]=\"loading+'%'\">\r\n              <span class=\"sr-only\">{{loading}}% Complete</span>\r\n            </div>\r\n          </div>\r\n          <table id=\"statistics\" class=\"table table-bordered table-hover\">\r\n            <thead>\r\n            <tr>\r\n              <th>Criteria</th>\r\n              <th>Total</th>\r\n              <th>AVG</th>\r\n              <th>Win</th>\r\n              <th>Draw</th>\r\n              <th>Lose</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n            <tr>\r\n              <td>Total Shots:</td>\r\n              <td>{{getAllTotalInLeague(totalShots.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(totalShots.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{totalShots.win}}</td>\r\n              <td>{{totalShots.draw}}</td>\r\n              <td>{{totalShots.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Shot On Goals:</td>\r\n              <td>{{getAllTotalInLeague(shotOnGoals.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(shotOnGoals.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{shotOnGoals.win}}</td>\r\n              <td>{{shotOnGoals.draw}}</td>\r\n              <td>{{shotOnGoals.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Corner Kicks:</td>\r\n              <td>{{getAllTotalInLeague(cornerKicks.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(cornerKicks.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{cornerKicks.win}}</td>\r\n              <td>{{cornerKicks.draw}}</td>\r\n              <td>{{cornerKicks.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Offsides:</td>\r\n              <td>{{getAllTotalInLeague(offsides.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(offsides.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{offsides.win}}</td>\r\n              <td>{{offsides.draw}}</td>\r\n              <td>{{offsides.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Goal Keeper Saves:</td>\r\n              <td>{{getAllTotalInLeague(goalKeeperSaves.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(goalKeeperSaves.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{goalKeeperSaves.win}}</td>\r\n              <td>{{goalKeeperSaves.draw}}</td>\r\n              <td>{{goalKeeperSaves.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Fouls:</td>\r\n              <td>{{getAllTotalInLeague(fouls.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(fouls.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{fouls.win}}</td>\r\n              <td>{{fouls.draw}}</td>\r\n              <td>{{fouls.lose}}</td>\r\n            </tr>\r\n            <tr>\r\n              <td>Yellow Cards:</td>\r\n              <td>{{getAllTotalInLeague(yellowCards.total)}}</td>\r\n              <td>{{(getAllTotalInLeague(yellowCards.total) / currentFixture).toFixed(2)}}</td>\r\n              <td>{{yellowCards.win}}</td>\r\n              <td>{{yellowCards.draw}}</td>\r\n              <td>{{yellowCards.lose}}</td>\r\n            </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <!-- /.card-body -->\r\n      </div>\r\n      <!-- /.card -->\r\n    </div>\r\n    <!-- /.col -->\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-12\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header\">\r\n          <h3 class=\"card-title\">\r\n            Fixture\r\n          </h3>\r\n          <div class=\"card-tools\">\r\n            <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\" data-toggle=\"tooltip\"\r\n                    title=\"Collapse\">\r\n              <i class=\"fas fa-minus\"></i></button>\r\n          </div>\r\n        </div>\r\n        <!-- /.card-header -->\r\n        <div class=\"card-body\">\r\n          <table id=\"fixtures\" class=\"table table-hover\">\r\n            <tbody>\r\n            <ng-container *ngFor=\"let fixture of listFixture\">\r\n              <tr>\r\n                <td></td>\r\n                <td style=\"text-align: center\">{{fixture.status}}</td>\r\n                <td style=\"text-align: right\">\r\n                  <span>\r\n                    <img [src]=\"fixture.homeTeam.logo\" [alt]=\"fixture.homeTeam.code\" width=\"25\" height=\"25\">\r\n                    {{fixture.homeTeam.team_name}}\r\n                  </span>\r\n                </td>\r\n                <td style=\"text-align: center\">\r\n                  <a routerLink=\"/fixture/{{fixture.fixture_id}}\" *ngIf=\"fixture.statusShort == 'FT'\">\r\n                    {{fixture.score.fulltime}}\r\n                  </a>\r\n                  <span *ngIf=\"fixture.statusShort != 'FT'\">-</span>\r\n                </td>\r\n                <td>\r\n                  <span>\r\n                    <img [src]=\"fixture.awayTeam.logo\" [alt]=\"fixture.awayTeam.code\" width=\"25\" height=\"25\">\r\n                    {{fixture.awayTeam.team_name}}\r\n                  </span>\r\n                </td>\r\n                <td>\r\n                  <a routerLink=\"/h2h/{{fixture.homeTeam.team_id}}/{{fixture.awayTeam.team_id}}\">\r\n                    H2H\r\n                  </a>\r\n                </td>\r\n                <td></td>\r\n              </tr>\r\n            </ng-container>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n        <!-- /.card-body -->\r\n      </div>\r\n      <!-- /.card -->\r\n    </div>\r\n    <!-- /.col -->\r\n  </div>\r\n</div>\r\n<!-- /.row -->\r\n");
 
 /***/ }),
 
@@ -289,6 +125,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _service_fixture_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../service/fixture.service */ "./src/app/service/fixture.service.ts");
 /* harmony import */ var _service_statistics_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../service/statistics.service */ "./src/app/service/statistics.service.ts");
 /* harmony import */ var _service_team_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../service/team.service */ "./src/app/service/team.service.ts");
+/* harmony import */ var _service_data_table_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../service/data-table.service */ "./src/app/service/data-table.service.ts");
+/* harmony import */ var _standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../standing/standing/standing.component */ "./src/app/standing/standing/standing.component.ts");
+
+
 
 
 
@@ -296,11 +136,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let TeamDetailComponent = class TeamDetailComponent {
-    constructor(activatedRoute, fixtureService, statisticsService, teamService) {
+    constructor(activatedRoute, fixtureService, statisticsService, teamService, dataTableService) {
         this.activatedRoute = activatedRoute;
         this.fixtureService = fixtureService;
         this.statisticsService = statisticsService;
         this.teamService = teamService;
+        this.dataTableService = dataTableService;
         this.listFixture = [];
         this.totalShots = {
             total: [],
@@ -345,6 +186,7 @@ let TeamDetailComponent = class TeamDetailComponent {
             lose: 0
         };
         this.loading = 0;
+        this.currentFixture = 1;
         this.activatedRoute.paramMap.subscribe((paramMap) => {
             const teamId = +paramMap.get('teamId');
             const leagueId = +paramMap.get('leagueId');
@@ -372,6 +214,7 @@ let TeamDetailComponent = class TeamDetailComponent {
                 }
                 if (fixtureStatus == 'FT') {
                     let x = yield this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
+                    this.currentFixture++;
                 }
                 this.loading = Math.ceil((++count / this.listFixture.length) * 100);
             }
@@ -381,17 +224,17 @@ let TeamDetailComponent = class TeamDetailComponent {
         return new Promise((resolve, reject) => setTimeout(() => {
             this.getStatisticsByFixtureId(fixtureId, isHomeTeam);
             resolve('success');
-        }, 3000));
+        }, 500));
     }
     getStatisticsByFixtureId(fixtureId, isHomeTeam) {
         this.statisticsService.getStatisticsByFixtureId(fixtureId).subscribe(data => {
-            let totalShot = data.api.statistics['Total Shots'];
-            let shotOnGoal = data.api.statistics['Shots on Goal'];
-            let cornerKick = data.api.statistics['Corner Kicks'];
+            let totalShot = data.api.statistics[_standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__["TOTAL_SHOTS"]];
+            let shotOnGoal = data.api.statistics[_standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__["SHOT_ON_GOALS"]];
+            let cornerKick = data.api.statistics[_standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__["CORNER_KICKS"]];
             let offside = data.api.statistics.Offsides;
-            let goalKeeperSave = data.api.statistics['Goalkeeper Saves'];
+            let goalKeeperSave = data.api.statistics[_standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__["GOAL_KEEPER_SAVES"]];
             let foul = data.api.statistics.Fouls;
-            let yellowCard = data.api.statistics['Yellow Cards'];
+            let yellowCard = data.api.statistics[_standing_standing_standing_component__WEBPACK_IMPORTED_MODULE_7__["YELLOW_CARDS"]];
             this.checkCriteria(totalShot, this.totalShots, isHomeTeam);
             this.checkCriteria(shotOnGoal, this.shotOnGoals, isHomeTeam);
             this.checkCriteria(cornerKick, this.cornerKicks, isHomeTeam);
@@ -435,25 +278,25 @@ let TeamDetailComponent = class TeamDetailComponent {
     }
     checkCriteria(criteriaName, criteria, isHomeTeam) {
         if (isHomeTeam) {
-            if (criteriaName.home > criteriaName.away) {
+            if (+criteriaName.home > +criteriaName.away) {
                 criteria.win++;
             }
-            else if (criteriaName.home < criteriaName.away) {
-                criteria.lose++;
+            else if (+criteriaName.home == +criteriaName.away) {
+                criteria.draw++;
             }
             else {
-                criteria.draw++;
+                criteria.lose++;
             }
         }
         else {
-            if (criteriaName.away > criteriaName.home) {
-                criteria.win++;
-            }
-            else if (criteriaName.away < criteriaName.home) {
+            if (+criteriaName.home > +criteriaName.away) {
                 criteria.lose++;
             }
-            else {
+            else if (+criteriaName.home == +criteriaName.away) {
                 criteria.draw++;
+            }
+            else {
+                criteria.win++;
             }
         }
     }
@@ -462,7 +305,8 @@ TeamDetailComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
     { type: _service_fixture_service__WEBPACK_IMPORTED_MODULE_3__["FixtureService"] },
     { type: _service_statistics_service__WEBPACK_IMPORTED_MODULE_4__["StatisticsService"] },
-    { type: _service_team_service__WEBPACK_IMPORTED_MODULE_5__["TeamService"] }
+    { type: _service_team_service__WEBPACK_IMPORTED_MODULE_5__["TeamService"] },
+    { type: _service_data_table_service__WEBPACK_IMPORTED_MODULE_6__["DataTableService"] }
 ];
 TeamDetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -504,6 +348,10 @@ const routes = [
     {
         path: 'teams/:teamId',
         component: _team_detail_team_detail_component__WEBPACK_IMPORTED_MODULE_4__["TeamDetailComponent"]
+    },
+    {
+        path: 'compare',
+        loadChildren: () => Promise.all(/*! import() | compare-compare-module */[__webpack_require__.e("default~compare-compare-module~standing-standing-module"), __webpack_require__.e("compare-compare-module")]).then(__webpack_require__.bind(null, /*! ../compare/compare.module */ "./src/app/compare/compare.module.ts")).then(module => module.CompareModule)
     },
     {
         path: '',
