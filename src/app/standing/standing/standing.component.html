@@ -27,6 +27,8 @@
               <th>Win</th>
               <th>Draw</th>
               <th>Lose</th>
+              <th>Chain Wins</th>
+              <th>Chain Loses</th>
               <th>Total</th>
               <th></th>
             </tr>
@@ -40,6 +42,8 @@
                 <td>{{team.data.win}}</td>
                 <td>{{team.data.draw}}</td>
                 <td>{{team.data.lose}}</td>
+                <td>{{team.data.chainWins}}</td>
+                <td>{{team.data.chainLoses}}</td>
                 <td>{{team.data.total}}</td>
                 <td><a [routerLink]="['/league',league,'teams',team.team_id]">Details</a></td>
               </tr>

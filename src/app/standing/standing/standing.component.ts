@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {FixtureService} from '../../service/fixture.service';
 import {StatisticsService} from '../../service/statistics.service';
@@ -175,7 +175,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForShotOnGoals.push({
@@ -187,7 +189,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForCornerKicks.push({
@@ -199,7 +203,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForOffsides.push({
@@ -211,7 +217,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForGoalKeeperSaves.push({
@@ -223,7 +231,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForFouls.push({
@@ -235,7 +245,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     this.standingForYellowCards.push({
@@ -247,7 +259,9 @@ export class StandingComponent implements OnInit {
         total: 0,
         win: 0,
         draw: 0,
-        lose: 0
+        lose: 0,
+        chainWins: 0,
+        chainLose: 0
       }
     });
     return await this.getAllFixtureByTeamAndLeagueToPromise(team.team_id, leagueId);
@@ -272,18 +286,30 @@ export class StandingComponent implements OnInit {
     if (isHomeTeam) {
       if (+criteriaName.home > +criteriaName.away) {
         criteria.win++;
+        criteria.chainLoses = 0;
+        criteria.chainWins++;
       } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+        criteria.chainLoses = 0;
+        criteria.chainWins = 0;
       } else {
         criteria.lose++;
+        criteria.chainWins = 0;
+        criteria.chainLoses++;
       }
     } else {
       if (+criteriaName.home > +criteriaName.away) {
         criteria.lose++;
+        criteria.chainWins = 0;
+        criteria.chainLoses++;
       } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
+        criteria.chainLoses = 0;
+        criteria.chainWins = 0;
       } else {
         criteria.win++;
+        criteria.chainLoses = 0;
+        criteria.chainWins++;
       }
     }
   }
