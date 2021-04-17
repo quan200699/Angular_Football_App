@@ -31,6 +31,7 @@
               <th>Chain Loses</th>
               <th>Total</th>
               <th></th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -45,14 +46,45 @@
                 <td>{{team.data.chainWins}}</td>
                 <td>{{team.data.chainLoses}}</td>
                 <td>{{team.data.total}}</td>
+                <td>
+                  <button class="btn btn-primary" (click)="addTeamToCompare(team)">Compare</button>
+                </td>
                 <td><a [routerLink]="['/league',league,'teams',team.team_id]">Details</a></td>
               </tr>
             </ng-container>
             </tbody>
           </table>
         </div>
+        <div class="card-footer row">
+          <div class="col-1">
+          </div>
+          <div class="col-4" *ngIf="firstTeamToCompare">
+            <img [src]="firstTeamToCompare.logo" [alt]="firstTeamToCompare.code" width="50" height="50">
+            <span> {{firstTeamToCompare.teamName}}</span>
+          </div>
+          <div class="col-4" *ngIf="!firstTeamToCompare">
+            <img width="50" height="50">
+          </div>
+          <div class="col-2">
+            <p class="mt-1">VS</p>
+          </div>
+          <div class="col-4" *ngIf="secondTeamToCompare">
+            <img [src]="secondTeamToCompare.logo" [alt]="secondTeamToCompare.code" width="50" height="50">
+            <span> {{secondTeamToCompare.teamName}}</span>
+          </div>
+          <div class="col-4" *ngIf="!secondTeamToCompare">
+            <img width="50" height="50">
+          </div>
+          <div class="col-1">
+            <a href="">
+              <button class="btn btn-primary">Compare</button>
+            </a>
+          </div>
+        </div>
         <!-- /.card-body -->
       </div>
+
+
       <!-- /.card -->
     </div>
     <!-- /.col -->

@@ -97,7 +97,6 @@ export class TeamDetailComponent implements OnInit {
         }
         this.loading = Math.ceil((++count / this.listFixture.length) * 100);
       }
-      this.dataTableService.createDataTable('statistics');
     });
   }
 

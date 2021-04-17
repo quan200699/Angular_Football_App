@@ -39,6 +39,9 @@ export class StandingComponent implements OnInit {
   statisticName: string = TOTAL_SHOTS;
   loading = 0;
   league: any;
+  firstTeamToCompare: any = null;
+  secondTeamToCompare: any = null;
+  flag = 0;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
@@ -272,12 +275,6 @@ export class StandingComponent implements OnInit {
     return this.fixtureService.getAllFixtureByTeamAndByLeague(teamId, leagueId).toPromise();
   }
 
-  waitingForData() {
-    return new Promise((resolve, reject) => setTimeout(() => {
-      resolve('success');
-    }, 1000));
-  }
-
   getStatisticsByFixtureIdToPromise(fixtureId: any) {
     return this.statisticsService.getStatisticsByFixtureId(fixtureId).toPromise();
   }
@@ -316,5 +313,24 @@ export class StandingComponent implements OnInit {
 
   sortList(array) {
     return this.statisticsService.sortListDesc(array);
+  }
+
+  addTeamToCompare(team: any) {
+    if (this.firstTeamToCompare != null) {
+      if (team.team_id == this.firstTeamToCompare.team_id) {
+        return;
+      }
+    }
+    if (this.secondTeamToCompare != null) {
+      if (this.secondTeamToCompare.team_id == team.team_id) {
+        return;
+      }
+    }
+    this.flag++;
+    if (this.flag % 2 != 0) {
+      this.firstTeamToCompare = team;
+    } else {
+      this.secondTeamToCompare = team;
+    }
   }
 }
