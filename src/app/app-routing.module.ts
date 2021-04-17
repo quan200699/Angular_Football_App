@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'fixture',
     loadChildren: () => import('./fixture/fixture.module').then(module => module.FixtureModule)
+  },
+  {
+    path: 'compare',
+    loadChildren: () => import('./compare/compare.module').then(module => module.CompareModule)
   }
 ];
 
