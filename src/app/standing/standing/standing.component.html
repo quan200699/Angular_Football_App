@@ -76,7 +76,7 @@
             <img width="50" height="50">
           </div>
           <div class="col-1" *ngIf="secondTeamToCompare && firstTeamToCompare">
-            <a [routerLink]="['/compare',firstTeamToCompare.team_id,secondTeamToCompare.team_id]">
+            <a [routerLink]="['/league',league,'compare',firstTeamToCompare.team_id,secondTeamToCompare.team_id]">
               <button class="btn btn-primary">Compare</button>
             </a>
           </div>

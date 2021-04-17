@@ -14,6 +14,10 @@ const routes: Routes = [
     component: TeamDetailComponent
   },
   {
+    path: 'compare',
+    loadChildren: () => import('../compare/compare.module').then(module => module.CompareModule)
+  },
+  {
     path: '',
     redirectTo: 'teams'
   }

@@ -1,1 +1,81 @@
-<p>detail works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header row">
+          <h3 class="card-title col-9">Compare {{statisticName}} For 2 Team</h3>
+          <div class="col-3">
+            <select [(ngModel)]="statisticName" (change)="changeStatisticStandingShow(statisticName)">
+              <option *ngFor="let statistic of statisticNames" value="{{statistic}}">{{statistic}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="progress progress-sm active">
+          <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
+               aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" [style.width]="loading+'%'">
+            <span class="sr-only">{{loading}}% Complete</span>
+          </div>
+        </div>
+        <table id="statistics" class="table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>Criteria</th>
+            <th>
+              <span>
+                <img [src]="firstTeam.logo" [alt]="firstTeam.code" width="25"
+                     height="25">
+                {{firstTeam.teamName}}
+              </span>
+            </th>
+            <th>
+              <span>
+                <img [src]="secondTeam.logo" [alt]="secondTeam.code" width="25"
+                     height="25">
+                {{secondTeam.teamName}}
+              </span>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Win:</td>
+            <td>{{firstTeam.data?.win}}</td>
+            <td>{{secondTeam.data?.win}}</td>
+          </tr>
+          <tr>
+            <td>Draw:</td>
+            <td>{{firstTeam.data?.draw}}</td>
+            <td>{{secondTeam.data?.draw}}</td>
+          </tr>
+          <tr>
+            <td>Lose:</td>
+            <td>{{firstTeam.data?.lose}}</td>
+            <td>{{secondTeam.data?.lose}}</td>
+          </tr>
+          <tr>
+            <td>Chain Wins:</td>
+            <td>{{firstTeam.data?.chainWins}}</td>
+            <td>{{secondTeam.data?.chainWins}}</td>
+          </tr>
+          <tr>
+            <td>Chain Loses:</td>
+            <td>{{firstTeam.data?.chainLose}}</td>
+            <td>{{secondTeam.data?.chainLose}}</td>
+          </tr>
+          <tr>
+            <td>Total:</td>
+            <td>{{firstTeam.data?.total}}</td>
+            <td>{{secondTeam.data?.total}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
