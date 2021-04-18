@@ -81,12 +81,14 @@ export class DetailComponent implements OnInit {
         home: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         },
         away: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         }
       }
     };
@@ -107,12 +109,14 @@ export class DetailComponent implements OnInit {
         home: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         },
         away: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         }
       }
     };
@@ -284,12 +288,14 @@ export class DetailComponent implements OnInit {
         home: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         },
         away: {
           win: 0,
           lose: 0,
-          draw: 0
+          draw: 0,
+          total: 0
         }
       }
     };
@@ -307,6 +313,7 @@ export class DetailComponent implements OnInit {
 
   checkCriteria(criteriaName, criteria, isHomeTeam) {
     if (isHomeTeam) {
+      criteria.home.total++;
       if (+criteriaName.home > +criteriaName.away) {
         criteria.win++;
         criteria.chainLoses = 0;
@@ -324,6 +331,7 @@ export class DetailComponent implements OnInit {
         criteria.home.lose++;
       }
     } else {
+      criteria.away.total++;
       if (+criteriaName.home > +criteriaName.away) {
         criteria.away.lose++;
         criteria.lose++;

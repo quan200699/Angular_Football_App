@@ -57,13 +57,53 @@
           </tr>
           <tr>
             <td>Home:</td>
-            <td>{{firstTeam.data?.home.win}} W - {{firstTeam.data?.home.draw}} D - {{firstTeam.data?.home.lose}} L</td>
-            <td>{{secondTeam.data?.home.win}} W - {{secondTeam.data?.home.draw}} D - {{secondTeam.data?.home.lose}} L</td>
+            <td>
+              <p>
+                {{firstTeam.data?.home.win}} W - {{firstTeam.data?.home.draw}} D - {{firstTeam.data?.home.lose}} L
+              </p>
+              <p>
+                Win: {{((firstTeam.data?.home.win / firstTeam.data?.home.total) * 100).toFixed(2)}}%
+              </p>
+              <p>
+                Lose: {{((firstTeam.data?.home.lose / firstTeam.data?.home.total) * 100).toFixed(2)}}%
+              </p>
+            </td>
+            <td>
+              <p>
+                {{secondTeam.data?.home.win}} W - {{secondTeam.data?.home.draw}} D - {{secondTeam.data?.home.lose}}L
+              </p>
+              <p>
+                Win: {{((secondTeam.data?.home.win / secondTeam.data?.home.total) * 100).toFixed(2)}}%
+              </p>
+              <p>
+                Lose: {{((secondTeam.data?.home.lose / secondTeam.data?.home.total) * 100).toFixed(2)}}%
+              </p>
+            </td>
           </tr>
           <tr>
             <td>Away:</td>
-            <td>{{firstTeam.data?.away.win}} W - {{firstTeam.data?.away.draw}} D - {{firstTeam.data?.away.lose}} L</td>
-            <td>{{secondTeam.data?.away.win}} W - {{secondTeam.data?.away.draw}} D - {{secondTeam.data?.away.lose}} L</td>
+            <td>
+              <p>
+                {{firstTeam.data?.away.win}} W - {{firstTeam.data?.away.draw}} D - {{firstTeam.data?.away.lose}} L
+              </p>
+              <p>
+                Win: {{((firstTeam.data?.away.win / firstTeam.data?.away.total) * 100).toFixed(2)}}%
+              </p>
+              <p>
+                Lose: {{((firstTeam.data?.away.lose / firstTeam.data?.away.total) * 100).toFixed(2)}}%
+              </p>
+            </td>
+            <td>
+              <p>
+                {{secondTeam.data?.away.win}} W - {{secondTeam.data?.away.draw}} D - {{secondTeam.data?.away.lose}}L
+              </p>
+              <p>
+                Win: {{((secondTeam.data?.away.win / secondTeam.data?.away.total) * 100).toFixed(2)}}%
+              </p>
+              <p>
+                Lose: {{((secondTeam.data?.away.lose / secondTeam.data?.away.total) * 100).toFixed(2)}}%
+              </p>
+            </td>
           </tr>
           <tr>
             <td>Chain Wins:</td>
