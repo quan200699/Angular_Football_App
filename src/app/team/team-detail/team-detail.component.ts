@@ -4,7 +4,15 @@ import {FixtureService} from '../../service/fixture.service';
 import {StatisticsService} from '../../service/statistics.service';
 import {TeamService} from '../../service/team.service';
 import {DataTableService} from '../../service/data-table.service';
-import {CORNER_KICKS, GOAL_KEEPER_SAVES, SHOT_ON_GOALS, TOTAL_SHOTS, YELLOW_CARDS} from '../../standing/standing/standing.component';
+import {
+  CORNER_KICKS,
+  FOULS,
+  GOAL_KEEPER_SAVES,
+  OFFSIDES,
+  SHOT_ON_GOALS,
+  TOTAL_SHOTS,
+  YELLOW_CARDS
+} from '../../standing/standing/standing.component';
 
 @Component({
   selector: 'app-team-detail',
@@ -58,15 +66,25 @@ export class TeamDetailComponent implements OnInit {
   currentTeam: any;
   loading = 0;
   currentFixture = 1;
+  statistics: any = [];
+  statisticsTotalShot: any = [];
+  statisticsShotOnGoal: any = [];
+  statisticsCornerKick: any = [];
+  statisticsFoul: any = [];
+  statisticsOffside: any = [];
+  statisticsGoalKeeperSave: any = [];
+  statisticsYellowCard: any = [];
+  statisticNames: string[] = [TOTAL_SHOTS, SHOT_ON_GOALS, CORNER_KICKS, FOULS, OFFSIDES, GOAL_KEEPER_SAVES, YELLOW_CARDS];
+  statisticName: string = TOTAL_SHOTS;
 
   constructor(private activatedRoute: ActivatedRoute,
               private fixtureService: FixtureService,
               private statisticsService: StatisticsService,
-              private teamService: TeamService,
-              private dataTableService: DataTableService) {
+              private teamService: TeamService) {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       const teamId = +paramMap.get('teamId');
       const leagueId = +paramMap.get('leagueId');
+      this.initData();
       this.getTeamById(teamId);
       this.getAllFixtureByTeamAndLeague(teamId, leagueId);
     });
@@ -75,10 +93,47 @@ export class TeamDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  initData() {
+    this.statistics = this.statisticsTotalShot;
+  }
+
   getTeamById(id) {
     this.teamService.getTeamById(id).subscribe(data => {
       this.currentTeam = data.api.teams[0];
     });
+  }
+
+  changeStatisticStandingShow(statisticName) {
+    switch (statisticName) {
+      case TOTAL_SHOTS: {
+        this.statistics = this.statisticsTotalShot;
+        break;
+      }
+      case SHOT_ON_GOALS: {
+        this.statistics = this.statisticsShotOnGoal;
+        break;
+      }
+      case FOULS: {
+        this.statistics = this.statisticsFoul;
+        break;
+      }
+      case YELLOW_CARDS: {
+        this.statistics = this.statisticsYellowCard;
+        break;
+      }
+      case GOAL_KEEPER_SAVES: {
+        this.statistics = this.statisticsGoalKeeperSave;
+        break;
+      }
+      case OFFSIDES: {
+        this.statistics = this.statisticsOffside;
+        break;
+      }
+      case CORNER_KICKS: {
+        this.statistics = this.statisticsCornerKick;
+        break;
+      }
+    }
   }
 
   getAllFixtureByTeamAndLeague(teamId: any, leagueId: any) {
@@ -87,67 +142,302 @@ export class TeamDetailComponent implements OnInit {
       let count = 0;
       for (let i = 0; i < this.listFixture.length; i++) {
         const homeTeam = this.listFixture[i].homeTeam;
-        const fixtureStatus = this.listFixture[i].statusShort;
         let isHomeTeam = false;
         if (homeTeam.team_id === teamId) {
           isHomeTeam = true;
         }
-        if (fixtureStatus == 'FT') {
-          let x = await this.waitingForData(this.listFixture[i].fixture_id, isHomeTeam);
-          this.currentFixture++;
-        }
+        this.getStatisticsByFixtureId(this.listFixture[i].fixture_id, isHomeTeam, this.listFixture[i]);
         this.loading = Math.ceil((++count / this.listFixture.length) * 100);
       }
     });
   }
 
-  waitingForData(fixtureId, isHomeTeam) {
-    return new Promise((resolve, reject) => setTimeout(() => {
-      this.getStatisticsByFixtureId(fixtureId, isHomeTeam);
-      resolve('success');
-    }, 500));
-  }
-
-  getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any) {
+  getStatisticsByFixtureId(fixtureId: any, isHomeTeam: any, fixture) {
     this.statisticsService.getStatisticsByFixtureId(fixtureId).subscribe(data => {
-      let totalShot = data.api.statistics[TOTAL_SHOTS];
-      let shotOnGoal = data.api.statistics[SHOT_ON_GOALS];
-      let cornerKick = data.api.statistics[CORNER_KICKS];
-      let offside = data.api.statistics.Offsides;
-      let goalKeeperSave = data.api.statistics[GOAL_KEEPER_SAVES];
-      let foul = data.api.statistics.Fouls;
-      let yellowCard = data.api.statistics[YELLOW_CARDS];
-      this.checkCriteria(totalShot, this.totalShots, isHomeTeam);
-      this.checkCriteria(shotOnGoal, this.shotOnGoals, isHomeTeam);
-      this.checkCriteria(cornerKick, this.cornerKicks, isHomeTeam);
-      this.checkCriteria(offside, this.offsides, isHomeTeam);
-      this.checkCriteria(goalKeeperSave, this.goalKeeperSaves, isHomeTeam);
-      this.checkCriteria(foul, this.fouls, isHomeTeam);
-      this.checkCriteria(yellowCard, this.yellowCards, isHomeTeam);
-      if (isHomeTeam) {
-        totalShot = totalShot.home;
-        shotOnGoal = shotOnGoal.home;
-        cornerKick = cornerKick.home;
-        offside = offside.home;
-        goalKeeperSave = goalKeeperSave.home;
-        foul = foul.home;
-        yellowCard = yellowCard.home;
+      let homeTeam = fixture.homeTeam;
+      let awayTeam = fixture.awayTeam;
+      let fixtureShortStatus = fixture.statusShort;
+      let fixtureStatus = fixture.status;
+      if (fixtureShortStatus == 'FT') {
+        let totalShot = data.api.statistics[TOTAL_SHOTS];
+        let shotOnGoal = data.api.statistics[SHOT_ON_GOALS];
+        let cornerKick = data.api.statistics[CORNER_KICKS];
+        let offside = data.api.statistics.Offsides;
+        let goalKeeperSave = data.api.statistics[GOAL_KEEPER_SAVES];
+        let foul = data.api.statistics.Fouls;
+        let yellowCard = data.api.statistics[YELLOW_CARDS];
+        this.checkCriteria(totalShot, this.totalShots, isHomeTeam);
+        this.checkCriteria(shotOnGoal, this.shotOnGoals, isHomeTeam);
+        this.checkCriteria(cornerKick, this.cornerKicks, isHomeTeam);
+        this.checkCriteria(offside, this.offsides, isHomeTeam);
+        this.checkCriteria(goalKeeperSave, this.goalKeeperSaves, isHomeTeam);
+        this.checkCriteria(foul, this.fouls, isHomeTeam);
+        this.checkCriteria(yellowCard, this.yellowCards, isHomeTeam);
+        this.statisticsTotalShot.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: totalShot.home + '-' + totalShot.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsShotOnGoal.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: shotOnGoal.home + '-' + shotOnGoal.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsCornerKick.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: cornerKick.home + '-' + cornerKick.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsOffside.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: offside.home + '-' + offside.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsFoul.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: foul.home + '-' + foul.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsGoalKeeperSave.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: goalKeeperSave.home + '-' + goalKeeperSave.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsYellowCard.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: yellowCard.home + '-' + yellowCard.away,
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        if (isHomeTeam) {
+          totalShot = totalShot.home;
+          shotOnGoal = shotOnGoal.home;
+          cornerKick = cornerKick.home;
+          offside = offside.home;
+          goalKeeperSave = goalKeeperSave.home;
+          foul = foul.home;
+          yellowCard = yellowCard.home;
+        } else {
+          totalShot = totalShot.away;
+          shotOnGoal = shotOnGoal.away;
+          cornerKick = cornerKick.away;
+          offside = offside.away;
+          goalKeeperSave = goalKeeperSave.away;
+          foul = foul.away;
+          yellowCard = yellowCard.away;
+        }
+        this.totalShots.total.push(totalShot);
+        this.shotOnGoals.total.push(shotOnGoal);
+        this.cornerKicks.total.push(cornerKick);
+        this.offsides.total.push(offside);
+        this.goalKeeperSaves.total.push(goalKeeperSave);
+        this.fouls.total.push(foul);
+        this.yellowCards.total.push(yellowCard);
+        this.currentFixture++;
       } else {
-        totalShot = totalShot.away;
-        shotOnGoal = shotOnGoal.away;
-        cornerKick = cornerKick.away;
-        offside = offside.away;
-        goalKeeperSave = goalKeeperSave.away;
-        foul = foul.away;
-        yellowCard = yellowCard.away;
+        this.statisticsTotalShot.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsShotOnGoal.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsCornerKick.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsOffside.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsFoul.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsGoalKeeperSave.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
+        this.statisticsYellowCard.push({
+          home: {
+            teamId: homeTeam.team_id,
+            name: homeTeam.team_name,
+            logo: homeTeam.logo,
+            code: homeTeam.code
+          },
+          away: {
+            teamId: awayTeam.team_id,
+            name: awayTeam.team_name,
+            logo: awayTeam.logo,
+            code: awayTeam.code
+          },
+          score: '-',
+          status: fixtureStatus,
+          shortStatus: fixtureShortStatus
+        });
       }
-      this.totalShots.total.push(totalShot);
-      this.shotOnGoals.total.push(shotOnGoal);
-      this.cornerKicks.total.push(cornerKick);
-      this.offsides.total.push(offside);
-      this.goalKeeperSaves.total.push(goalKeeperSave);
-      this.fouls.total.push(foul);
-      this.yellowCards.total.push(yellowCard);
     });
   }
 
