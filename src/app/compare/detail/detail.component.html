@@ -56,6 +56,16 @@
             <td>{{secondTeam.data?.lose}}</td>
           </tr>
           <tr>
+            <td>Home:</td>
+            <td>{{firstTeam.data?.home.win}} W - {{firstTeam.data?.home.draw}} D - {{firstTeam.data?.home.lose}} L</td>
+            <td>{{secondTeam.data?.home.win}} W - {{secondTeam.data?.home.draw}} D - {{secondTeam.data?.home.lose}} L</td>
+          </tr>
+          <tr>
+            <td>Away:</td>
+            <td>{{firstTeam.data?.away.win}} W - {{firstTeam.data?.away.draw}} D - {{firstTeam.data?.away.lose}} L</td>
+            <td>{{secondTeam.data?.away.win}} W - {{secondTeam.data?.away.draw}} D - {{secondTeam.data?.away.lose}} L</td>
+          </tr>
+          <tr>
             <td>Chain Wins:</td>
             <td>{{firstTeam.data?.chainWins}}</td>
             <td>{{secondTeam.data?.chainWins}}</td>

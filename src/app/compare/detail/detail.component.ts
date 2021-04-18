@@ -36,20 +36,7 @@ export class DetailComponent implements OnInit {
   statisticNames: string[] = [TOTAL_SHOTS, SHOT_ON_GOALS, CORNER_KICKS, FOULS, OFFSIDES, GOAL_KEEPER_SAVES, YELLOW_CARDS];
   statisticName: string = TOTAL_SHOTS;
   firstTeam: any = {};
-  secondTeam: any = {
-    team_id: -1,
-    teamName: '',
-    logo: '',
-    code: '',
-    data: {
-      total: 0,
-      win: 0,
-      draw: 0,
-      lose: 0,
-      chainWins: 0,
-      chainLose: 0
-    }
-  };
+  secondTeam: any = {};
   loading = 0;
   count = 0;
 
@@ -90,7 +77,17 @@ export class DetailComponent implements OnInit {
         draw: 0,
         lose: 0,
         chainWins: 0,
-        chainLose: 0
+        chainLose: 0,
+        home: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        },
+        away: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        }
       }
     };
     this.secondTeamTotalShot = this.secondTeamShotOnGoal = this.secondTeamYellowCard
@@ -106,7 +103,17 @@ export class DetailComponent implements OnInit {
         draw: 0,
         lose: 0,
         chainWins: 0,
-        chainLose: 0
+        chainLose: 0,
+        home: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        },
+        away: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        }
       }
     };
   }
@@ -273,7 +280,17 @@ export class DetailComponent implements OnInit {
         draw: 0,
         lose: 0,
         chainWins: 0,
-        chainLose: 0
+        chainLose: 0,
+        home: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        },
+        away: {
+          win: 0,
+          lose: 0,
+          draw: 0
+        }
       }
     };
     return teamStatistic;
@@ -294,25 +311,31 @@ export class DetailComponent implements OnInit {
         criteria.win++;
         criteria.chainLoses = 0;
         criteria.chainWins++;
+        criteria.home.win++;
       } else if (+criteriaName.home == +criteriaName.away) {
         criteria.draw++;
         criteria.chainLoses = 0;
         criteria.chainWins = 0;
+        criteria.home.draw++;
       } else {
         criteria.lose++;
         criteria.chainWins = 0;
         criteria.chainLoses++;
+        criteria.home.lose++;
       }
     } else {
       if (+criteriaName.home > +criteriaName.away) {
+        criteria.away.lose++;
         criteria.lose++;
         criteria.chainWins = 0;
         criteria.chainLoses++;
       } else if (+criteriaName.home == +criteriaName.away) {
+        criteria.away.draw++;
         criteria.draw++;
         criteria.chainLoses = 0;
         criteria.chainWins = 0;
       } else {
+        criteria.away.win++;
         criteria.win++;
         criteria.chainLoses = 0;
         criteria.chainWins++;
